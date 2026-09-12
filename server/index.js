@@ -1,0 +1,1 @@
+export default { async fetch(request, env) { const url=new URL(request.url); if (url.pathname === "/" || url.pathname === "/index.html") return new Response(await env.ASSETS.fetch(new Request(new URL("/index.html", request.url))), {headers:{"content-type":"text/html; charset=utf-8"}}); return env.ASSETS.fetch(request); } };
