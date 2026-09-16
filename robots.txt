@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://leonid-chekin-portfolio.leonidchekin55.chatgpt.site/sitemap.xml
+Sitemap: https://leonid-portfolio.onrender.com/sitemap.xml
