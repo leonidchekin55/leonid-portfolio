@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Knowledge Assistant architecture: document ingestion, passage retrieval, OpenRouter answers with citations, and demo limitations.">
+  <meta name="theme-color" content="#142923">
+  <title>Knowledge Assistant — AI document search architecture</title>
+  <link rel="canonical" href="https://leonid-portfolio.onrender.com/knowledge-assistant-en.html">
+  <link rel="alternate" hreflang="ru" href="https://leonid-portfolio.onrender.com/knowledge-assistant.html">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="knowledge-architecture.css">
+</head>
+<body class="architecture-page">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="board-header arch-header"><a class="brand" href="/en.html" aria-label="Back to portfolio"><span class="logo">lc.</span> Leonid Chekin</a><nav aria-label="Navigation"><a href="/en.html">Portfolio</a><a href="https://portfolio-knowledge-demo.onrender.com/" target="_blank" rel="noopener">Open demo ↗</a><a href="knowledge-assistant.html" lang="ru">RU</a></nav></header>
+  <main id="main" class="arch-main">
+    <div class="arch-kicker">KNOWLEDGE ASSISTANT · AI / RAG</div>
+    <h1>How documents<br>become <em>answers.</em></h1>
+    <p class="arch-lead">The assistant extracts text, retrieves relevant passages, and sends only those passages with the question to a generative model. The answer includes source filenames, page numbers, and citations.</p>
+    <div class="arch-actions"><a class="button lime" href="https://portfolio-knowledge-demo.onrender.com/" target="_blank" rel="noopener">Try the demo ↗</a><a href="https://portfolio-knowledge-demo.onrender.com/docs" target="_blank" rel="noopener">Swagger / OpenAPI ↗</a><a href="https://github.com/leonidchekin55/developer-portfolio-python-ai/tree/main/knowledge-assistant" target="_blank" rel="noopener">Source code ↗</a></div>
+    <aside class="arch-notice"><b>Shared demo limitations.</b> There are no user accounts or isolation between visitors. Uploaded text and question history are shared within the demo. Do not upload personal or confidential files. OpenRouter's free route depends on model availability and quotas.</aside>
+
+    <section class="arch-section" aria-labelledby="flow-title"><div class="arch-label">01 / DATA FLOW</div><h2 id="flow-title">From file to answer.</h2>
+      <ol class="arch-flow">
+        <li><span>01 · WEB CLIENT</span><b>React</b><p>Accepts PDF, DOCX, or TXT files up to 10 MB and sends them to FastAPI.</p></li>
+        <li><span>02 · EXTRACTION</span><b>FastAPI + parsers</b><p>Validates type and size, extracts text, and preserves page numbers. The temporary file is removed after processing.</p></li>
+        <li><span>03 · PASSAGES</span><b>Chunking + SQLite</b><p>Normalizes text, creates 1,100-character chunks with 160-character overlap, and stores text with source metadata.</p></li>
+        <li><span>04 · RETRIEVAL</span><b>Lexical search</b><p>Compares question and passage terms, ranks matches with cosine similarity, and selects up to three sources.</p></li>
+        <li><span>05 · GENERATION</span><b>OpenRouter · free route</b><p>The server sends the question and retrieved excerpts to the model. The API key stays in Render environment variables and never reaches the browser.</p></li>
+        <li><span>06 · RESULT</span><b>Answer + sources</b><p>The UI displays the answer, cited passages, and recent questions; chat history is stored in SQLite.</p></li>
+      </ol>
+      <div class="arch-flow-note"><b>Data boundary:</b> the original uploaded file is not sent to OpenRouter. The provider receives the question and relevant extracted passages — up to about 6,000 context characters per request.</div>
+    </section>
+
+    <section class="arch-section" aria-labelledby="decisions-title"><div class="arch-label">02 / DESIGN DECISIONS</div><h2 id="decisions-title">What happens inside.</h2>
+      <div class="arch-cards">
+        <article><span>RETRIEVAL</span><h3>Retrieve first, generate second</h3><p>Lexical retrieval narrows the context to relevant excerpts. The LLM receives only the question and those excerpts; its system prompt says to treat document content as untrusted and not follow instructions inside it.</p></article>
+        <article><span>SOURCES</span><h3>Answers you can verify</h3><p>Each API source includes a filename, page, excerpt, and relevance score. The model is asked to cite sources so readers can check claims against the document.</p></article>
+        <article><span>SECRETS</span><h3>The key stays server-side</h3><p>React calls the app's own API. FastAPI reads <code>OPENROUTER_API_KEY</code> from the environment, never from the browser or public repository.</p></article>
+        <article><span>PROCESSING</span><h3>Synchronous path for a small demo</h3><p>Indexing runs during the upload request. This keeps the demo simple; large files and higher traffic need a task queue and resource limits.</p></article>
+      </div>
+    </section>
+
+    <section class="arch-section" aria-labelledby="profiles-title"><div class="arch-label">03 / DEPLOYMENT PROFILES</div><h2 id="profiles-title">Hosted demo and full Compose profile.</h2>
+      <div class="arch-table-wrap"><table class="arch-table"><thead><tr><th>Layer</th><th>Public Render demo</th><th>Full Compose profile</th></tr></thead><tbody>
+        <tr><th>UI / API</th><td>React · FastAPI</td><td>React · FastAPI</td></tr>
+        <tr><th>Data</th><td>SQLite · container filesystem</td><td>PostgreSQL · upload volume</td></tr>
+        <tr><th>Search / generation</th><td>Lexical search · OpenRouter Free route</td><td>Qdrant vectors · Ollama embeddings and LLM</td></tr>
+        <tr><th>Background services</th><td>Requests run in a single web service</td><td>Compose includes Redis and a Celery worker; indexing can be moved into background tasks</td></tr>
+        <tr><th>Persistence</th><td>Data may reset after a restart or idle period</td><td>Local Docker volumes preserve data across restarts</td></tr>
+      </tbody></table></div>
+      <p class="arch-caption">The free profile lets visitors try the app without installation. The full profile is for exploring vector search and a local model; it is a development option, not a separate public production service.</p>
+    </section>
+
+    <section class="arch-section" aria-labelledby="limits-title"><div class="arch-label">04 / KNOWN GAPS</div><h2 id="limits-title">Before using real customer data.</h2><div class="arch-roadmap"><p><b>User isolation:</b> accounts and access checks for every document and conversation.</p><p><b>Indexing queue:</b> background jobs, retries, and processing status.</p><p><b>Durable storage:</b> PostgreSQL, object storage, backups, retention rules, and data deletion.</p><p><b>Security and quality:</b> request limits, content-based file validation, retrieval evaluation, document-injection tests, and citation accuracy checks.</p></div></section>
+    <footer class="arch-footer"><span>Knowledge Assistant · architecture and trade-offs</span><a href="/en.html">Back to portfolio ↑</a></footer>
+  </main>
+</body>
+</html>

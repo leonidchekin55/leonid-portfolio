@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Архитектура Knowledge Assistant: загрузка документов, поиск релевантных фрагментов, ответы OpenRouter с цитатами и ограничения демо.">
+  <meta name="theme-color" content="#142923">
+  <title>Knowledge Assistant — архитектура AI-поиска по документам</title>
+  <link rel="canonical" href="https://leonid-portfolio.onrender.com/knowledge-assistant.html">
+  <link rel="alternate" hreflang="en" href="https://leonid-portfolio.onrender.com/knowledge-assistant-en.html">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="knowledge-architecture.css">
+</head>
+<body class="architecture-page">
+  <a class="skip" href="#main">Перейти к содержимому</a>
+  <header class="board-header arch-header"><a class="brand" href="/" aria-label="На главную портфолио"><span class="logo">lc.</span> Леонид Чекин</a><nav aria-label="Навигация"><a href="/">Портфолио</a><a href="https://portfolio-knowledge-demo.onrender.com/" target="_blank" rel="noopener">Открыть демо ↗</a><a href="knowledge-assistant-en.html" lang="en">EN</a></nav></header>
+  <main id="main" class="arch-main">
+    <div class="arch-kicker">KNOWLEDGE ASSISTANT · AI / RAG</div>
+    <h1>Как документы<br>становятся <em>ответами.</em></h1>
+    <p class="arch-lead">Помощник извлекает текст из документов, находит подходящие фрагменты и передаёт только их вместе с вопросом генеративной модели. Ответ возвращается с именами файлов, страницами и цитатами.</p>
+    <div class="arch-actions"><a class="button lime" href="https://portfolio-knowledge-demo.onrender.com/" target="_blank" rel="noopener">Попробовать демо ↗</a><a href="https://portfolio-knowledge-demo.onrender.com/docs" target="_blank" rel="noopener">Swagger / OpenAPI ↗</a><a href="https://github.com/leonidchekin55/developer-portfolio-python-ai/tree/main/knowledge-assistant" target="_blank" rel="noopener">Исходный код ↗</a></div>
+    <aside class="arch-notice"><b>Ограничения общей демоверсии.</b> У неё нет входа в аккаунт и разделения документов между посетителями. Загруженные тексты и история вопросов доступны в общем пространстве демо. Не загружайте личные или конфиденциальные файлы. Бесплатный маршрут OpenRouter зависит от доступности моделей и квот.</aside>
+
+    <section class="arch-section" aria-labelledby="flow-title"><div class="arch-label">01 / ПОТОК ДАННЫХ</div><h2 id="flow-title">От файла до ответа.</h2>
+      <ol class="arch-flow">
+        <li><span>01 · ВЕБ-КЛИЕНТ</span><b>React</b><p>Принимает PDF, DOCX или TXT до 10 МБ и отправляет файл в FastAPI.</p></li>
+        <li><span>02 · ИЗВЛЕЧЕНИЕ</span><b>FastAPI + парсеры</b><p>Проверяет тип и размер, извлекает текст и сохраняет номер страницы. Временный файл удаляется после обработки.</p></li>
+        <li><span>03 · ФРАГМЕНТЫ</span><b>Chunking + SQLite</b><p>Нормализует текст, создаёт фрагменты по 1 100 символов с перекрытием 160 и сохраняет текст с метаданными источника.</p></li>
+        <li><span>04 · ПОИСК</span><b>Лексический retrieval</b><p>Сравнивает слова вопроса и фрагментов, ранжирует совпадения косинусной близостью и выбирает до трёх источников.</p></li>
+        <li><span>05 · ГЕНЕРАЦИЯ</span><b>OpenRouter · free route</b><p>Сервер передаёт вопрос и найденные выдержки модели. API-ключ хранится только в переменных Render; браузер его не получает.</p></li>
+        <li><span>06 · РЕЗУЛЬТАТ</span><b>Ответ + источники</b><p>Интерфейс показывает ответ, цитируемые фрагменты и недавние вопросы; история хранится в SQLite.</p></li>
+      </ol>
+      <div class="arch-flow-note"><b>Граница передачи:</b> оригинальный загруженный файл не отправляется OpenRouter. Провайдер получает вопрос и релевантные извлечённые фрагменты — максимум около 6 000 символов контекста на запрос.</div>
+    </section>
+
+    <section class="arch-section" aria-labelledby="decisions-title"><div class="arch-label">02 / РЕШЕНИЯ</div><h2 id="decisions-title">Что происходит внутри.</h2>
+      <div class="arch-cards">
+        <article><span>ПОИСК</span><h3>Сначала извлечь, потом генерировать</h3><p>Поиск по словам ограничивает контекст релевантными выдержками. LLM получает только вопрос и эти выдержки, а в системной инструкции ей запрещено исполнять команды, найденные внутри документов.</p></article>
+        <article><span>ИСТОЧНИКИ</span><h3>Проверяемость ответа</h3><p>Для каждого результата API возвращает имя файла, страницу, текст выдержки и оценку релевантности. Ответ просят ссылаться на источники, чтобы читатель мог сверить утверждение с документом.</p></article>
+        <article><span>СЕКРЕТЫ</span><h3>Ключ остаётся на сервере</h3><p>React вызывает собственный API. FastAPI читает <code>OPENROUTER_API_KEY</code> из окружения, а не из браузера или публичного репозитория.</p></article>
+        <article><span>ОБРАБОТКА</span><h3>Синхронный путь для небольшого демо</h3><p>Индексация выполняется в запросе загрузки. Это просто для демонстрации, но большие файлы и пиковая нагрузка требуют очереди задач и ограничений ресурсов.</p></article>
+      </div>
+    </section>
+
+    <section class="arch-section" aria-labelledby="profiles-title"><div class="arch-label">03 / ПРОФИЛИ РАЗВЁРТЫВАНИЯ</div><h2 id="profiles-title">Облако и полная конфигурация.</h2>
+      <div class="arch-table-wrap"><table class="arch-table"><thead><tr><th>Слой</th><th>Публичное демо на Render</th><th>Полная конфигурация Compose</th></tr></thead><tbody>
+        <tr><th>Интерфейс / API</th><td>React · FastAPI</td><td>React · FastAPI</td></tr>
+        <tr><th>Данные</th><td>SQLite · файловая система контейнера</td><td>PostgreSQL · том для загруженных файлов</td></tr>
+        <tr><th>Поиск / генерация</th><td>Лексический поиск · OpenRouter Free route</td><td>Qdrant-векторы · Ollama embeddings и LLM</td></tr>
+        <tr><th>Фоновые компоненты</th><td>Запросы обрабатываются одним веб-сервисом</td><td>Compose содержит Redis и Celery worker; обработку индексации можно перенести в задачи</td></tr>
+        <tr><th>Сохранность</th><td>Данные могут сбрасываться после перезапуска или простоя</td><td>Локальные Docker volumes сохраняют данные между перезапусками</td></tr>
+      </tbody></table></div>
+      <p class="arch-caption">Бесплатный профиль позволяет открыть и попробовать приложение без установки. Полный профиль нужен для изучения векторного поиска и локальной модели; это вариант разработки, не отдельный публичный production-сервис.</p>
+    </section>
+
+    <section class="arch-section" aria-labelledby="limits-title"><div class="arch-label">04 / ИЗВЕСТНЫЕ ОГРАНИЧЕНИЯ</div><h2 id="limits-title">Что добавить перед реальными данными.</h2><div class="arch-roadmap"><p><b>Изоляция пользователей:</b> учётные записи и проверки доступа к каждому документу и диалогу.</p><p><b>Очередь индексации:</b> фоновые задачи, повторные попытки и статус процесса.</p><p><b>Надёжное хранение:</b> PostgreSQL, объектное хранилище, резервные копии, сроки хранения и удаление данных.</p><p><b>Защита и качество:</b> лимиты запросов, проверка реального формата файлов, оценка качества поиска, тесты на инъекции в документы и точность цитат.</p></div></section>
+    <footer class="arch-footer"><span>Knowledge Assistant · архитектура и ограничения</span><a href="/">Вернуться к портфолио ↑</a></footer>
+  </main>
+</body>
+</html>
