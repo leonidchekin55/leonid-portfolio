@@ -21,13 +21,13 @@
       <div><div class="label">PULSEBOARD · ПЕСОЧНИЦА</div><h1>Рабочая доска</h1><p class="board-intro">Простой способ следить за проектами и видеть, что уже сделано.</p></div>
       <div class="board-actions"><button class="button dark" id="new-project">+ Новый проект</button><button class="button lime" id="new-task">+ Новая задача</button></div>
     </div>
-    <div class="sandbox-note"><span aria-hidden="true">●</span><div><b>Демо-режим</b><span>Изменения сохраняются только в этом браузере. Для знакомства с настоящим API откройте <a href="https://portfolio-pulseboard-demo.onrender.com/docs" target="_blank" rel="noopener">Swagger ↗</a>.</span></div><button id="reset-demo" class="quiet-button">Сбросить пример</button></div>
+    <div class="sandbox-note"><span aria-hidden="true">●</span><div><b>Демо подключено к API</b><span>Каждому посетителю создаётся отдельная временная сессия. Данные сбрасываются при перезапуске бесплатного сервиса. <a href="https://portfolio-pulseboard-demo.onrender.com/docs" target="_blank" rel="noopener">Открыть Swagger ↗</a>.</span></div><button id="reset-demo" class="quiet-button">Сбросить пример</button></div>
     <section class="board-toolbar" aria-label="Фильтры доски"><div><span class="toolbar-label">ПРОЕКТ</span><select id="project-filter" aria-label="Фильтр по проекту"></select></div><div class="board-stats" id="board-stats" aria-live="polite"></div></section>
     <section id="board" class="board-columns" aria-label="Задачи по этапам"></section>
-    <footer class="board-footer"><span>Pulseboard · проекты и задачи для небольшой команды</span><span>Демо хранится локально · <a href="https://github.com/leonidchekin55/developer-portfolio-python-ai" target="_blank" rel="noopener">Исходный код ↗</a></span></footer>
+    <footer class="board-footer"><span>Pulseboard · проекты и задачи для небольшой команды</span><span>Временная изолированная API-сессия · <a href="https://github.com/leonidchekin55/developer-portfolio-python-ai" target="_blank" rel="noopener">Исходный код ↗</a></span></footer>
   </main>
   <dialog id="task-dialog" class="board-dialog"><form id="task-form" method="dialog"><button class="dialog-close" type="button" aria-label="Закрыть">×</button><div class="label">НОВАЯ ЗАДАЧА</div><h2>Что нужно сделать?</h2><label>Название<input id="task-title" name="title" required minlength="2" maxlength="120" placeholder="Например, подготовить макет"></label><label>Проект<select id="task-project" name="project"></select></label><div class="dialog-actions"><button type="button" class="button dark" data-close>Отмена</button><button class="button lime" type="submit">Добавить задачу</button></div></form></dialog>
   <dialog id="project-dialog" class="board-dialog"><form id="project-form" method="dialog"><button class="dialog-close" type="button" aria-label="Закрыть">×</button><div class="label">НОВЫЙ ПРОЕКТ</div><h2>Добавить проект</h2><label>Название<input id="project-name" name="name" required minlength="2" maxlength="80" placeholder="Например, сайт компании"></label><div class="dialog-actions"><button type="button" class="button dark" data-close>Отмена</button><button class="button lime" type="submit">Создать проект</button></div></form></dialog>
-  <script src="pulseboard-ui.js?v=2" defer></script>
+  <script src="pulseboard-ui.js?v=3" defer></script>
 </body>
 </html>
