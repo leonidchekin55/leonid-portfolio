@@ -3,10 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta name="description" content="Архитектура Knowledge Assistant: загрузка документов, поиск релевантных фрагментов, ответы OpenRouter с цитатами и ограничения демо.">
   <meta name="theme-color" content="#142923">
   <title>Knowledge Assistant — архитектура AI-поиска по документам</title>
   <link rel="canonical" href="https://leonid-portfolio.onrender.com/knowledge-assistant.html">
+  <meta property="og:title" content="Knowledge Assistant — AI-поиск по документам">
+  <meta property="og:description" content="Архитектура RAG-приложения, демонстрационное видео и ограничения публичного демо.">
+  <meta property="og:url" content="https://leonid-portfolio.onrender.com/knowledge-assistant.html">
+  <meta property="og:image" content="https://leonid-portfolio.onrender.com/assets/knowledge-assistant-demo-poster.png">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="alternate" hreflang="en" href="https://leonid-portfolio.onrender.com/knowledge-assistant-en.html">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="knowledge-architecture.css">
@@ -56,7 +62,7 @@
     </section>
 
     <section class="arch-section" aria-labelledby="limits-title"><div class="arch-label">04 / ИЗВЕСТНЫЕ ОГРАНИЧЕНИЯ</div><h2 id="limits-title">Что добавить перед реальными данными.</h2><div class="arch-roadmap"><p><b>Постоянная база:</b> приложение поддерживает PostgreSQL, но текущая успешная версия демо использует временную SQLite на Render.</p><p><b>Файлы и резервные копии:</b> исходный файл удаляется после индексации; нужны объектное хранилище и проверенное восстановление базы.</p><p><b>Уже реализовано:</b> регистрация, изоляция документов и истории по аккаунту и удаление документа владельцем.</p><p><b>Следующие улучшения:</b> подтверждение email, восстановление пароля, очередь индексации и проверка качества retrieval/цитат.</p></div></section>
-    <footer class="arch-footer"><span>Knowledge Assistant · архитектура и ограничения</span><a href="/">Вернуться к портфолио ↑</a></footer>
+    <footer class="arch-footer"><span>Knowledge Assistant · архитектура и ограничения</span><a href="/privacy.html">Конфиденциальность</a><a href="/terms.html">Условия</a><a href="/">Вернуться к портфолио ↑</a></footer>
   </main>
 </body>
 </html>

@@ -3,10 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta name="description" content="Knowledge Assistant architecture: document ingestion, passage retrieval, OpenRouter answers with citations, and demo limitations.">
   <meta name="theme-color" content="#142923">
   <title>Knowledge Assistant — AI document search architecture</title>
   <link rel="canonical" href="https://leonid-portfolio.onrender.com/knowledge-assistant-en.html">
+  <meta property="og:title" content="Knowledge Assistant — AI document search">
+  <meta property="og:description" content="RAG application architecture, a short demo video, and public demo limitations.">
+  <meta property="og:url" content="https://leonid-portfolio.onrender.com/knowledge-assistant-en.html">
+  <meta property="og:image" content="https://leonid-portfolio.onrender.com/assets/knowledge-assistant-demo-poster.png">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="alternate" hreflang="ru" href="https://leonid-portfolio.onrender.com/knowledge-assistant.html">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="knowledge-architecture.css">
@@ -56,7 +62,7 @@
     </section>
 
     <section class="arch-section" aria-labelledby="limits-title"><div class="arch-label">04 / KNOWN GAPS</div><h2 id="limits-title">Before using real customer data.</h2><div class="arch-roadmap"><p><b>Persistent database:</b> the app supports PostgreSQL, but the current successful demo release uses ephemeral SQLite on Render.</p><p><b>Files and backups:</b> source uploads are deleted after indexing; object storage and a tested database restore process are still needed.</p><p><b>Already implemented:</b> accounts, per-account document and history isolation, and owner-only document deletion.</p><p><b>Next improvements:</b> email verification, password recovery, queued indexing, and retrieval/citation quality evaluation.</p></div></section>
-    <footer class="arch-footer"><span>Knowledge Assistant · architecture and trade-offs</span><a href="/en.html">Back to portfolio ↑</a></footer>
+    <footer class="arch-footer"><span>Knowledge Assistant · architecture and trade-offs</span><a href="/privacy-en.html">Privacy</a><a href="/terms-en.html">Terms</a><a href="/en.html">Back to portfolio ↑</a></footer>
   </main>
 </body>
 </html>
