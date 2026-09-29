@@ -1,0 +1,69 @@
+name: Refresh portfolio and resume
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/portfolio.json"
+      - "scripts/build_portfolio.py"
+      - "scripts/sync_google_doc.py"
+      - "index.html"
+      - "en.html"
+      - ".github/workflows/refresh-portfolio.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: portfolio-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install resume build tools and fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-dejavu-core
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-automation.txt
+
+      - name: Build localized project cards and resume PDF
+        run: python scripts/build_portfolio.py
+
+      - name: Sync the Google Doc when credentials are configured
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_RESUME_DOC_ID: ${{ vars.GOOGLE_RESUME_DOC_ID }}
+        run: |
+          if [ -n "${GOOGLE_SERVICE_ACCOUNT_JSON:-}" ] && [ -n "${GOOGLE_RESUME_DOC_ID:-}" ]; then
+            key_file="$(mktemp)"
+            trap 'rm -f "$key_file"' EXIT
+            printf '%s' "$GOOGLE_SERVICE_ACCOUNT_JSON" > "$key_file"
+            export GOOGLE_APPLICATION_CREDENTIALS="$key_file"
+            python scripts/sync_google_doc.py
+          else
+            echo "::warning::Site and PDF refreshed. Configure GOOGLE_SERVICE_ACCOUNT_JSON and GOOGLE_RESUME_DOC_ID to enable automatic Google Doc sync."
+          fi
+
+      - name: Commit generated site and PDF
+        run: |
+          if ! git diff --quiet -- index.html en.html downloads/Leonid_Chekin_Resume_Python_AI_FinTech.pdf; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html en.html downloads/Leonid_Chekin_Resume_Python_AI_FinTech.pdf
+            git commit -m "Build portfolio and resume from content source"
+            git push origin HEAD:main
+          else
+            echo "Generated files are already up to date."
+          fi

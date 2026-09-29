@@ -1,0 +1,70 @@
+{
+  "resume": {
+    "name": "Леонид Чекин",
+    "title": "Python Backend Developer · FastAPI · Integrations · Applied AI",
+    "phone": "+7 (988) 135-77-72",
+    "email": "leonidchekin55@gmail.com",
+    "telegram": "@leonchek97",
+    "location": "Новороссийск, Россия",
+    "summary": "Python-разработчик с коммерческим опытом с 2022 года. Основной фокус — backend-сервисы, API и интеграции; применяю AI для поиска по документам и автоматизации рабочих процессов. В проектах уточняю сценарии, реализую и проверяю решения, подготавливаю запуск и документацию. Использую AI-инструменты в разработке и лично отвечаю за логику, интеграции, проверку результатов, тестирование и исправление ошибок.",
+    "competencies": [
+      "Backend: Python, FastAPI, REST API, SQLAlchemy, PostgreSQL, Alembic, Redis, Celery, JWT/RBAC.",
+      "Интеграции: webhooks, внешние API, CRM, Telegram Bot API и Mini Apps, n8n; платёжный и фискальный сценарий Tilda / Т-Банк / АТОЛ.",
+      "AI и данные: RAG, обработка PDF/DOCX/TXT, embeddings, Qdrant, Ollama, OpenRouter, Pandas, CSV/JSON, временные ряды.",
+      "Качество и запуск: Pytest, Docker Compose, Git, GitHub Actions, Linux/SSH, OpenAPI, Prometheus."
+    ],
+    "experience": [
+      {
+        "title": "Python-разработка · проектная и freelance-работа · с 2022 года",
+        "text": "Разрабатываю Python-скрипты и сервисные компоненты для сбора, проверки, обработки и объединения данных. Создаю API и интеграции для продуктовых и бизнес-сценариев; настраиваю запуск, диагностику и автоматизацию повторяемых операций."
+      },
+      {
+        "title": "Количественный анализ и рыночные данные",
+        "text": "Около 3,5 лет работал с историческими рыночными данными: временные ряды, проверка гипотез, расчёты показателей и автоматизация обработки. Не заявляю публичную доходность или результаты, которые нельзя независимо проверить."
+      }
+    ],
+    "education": "НКСЭ, техник-программист, 2013–2017.",
+    "english": "Чтение технической документации; письменная коммуникация с поддержкой переводчика; разговорный — базовый.",
+    "work_format": "Удалённая работа в команде или проектное сотрудничество. Самозанятый.",
+    "portfolio_url": "https://leonid-portfolio.onrender.com",
+    "habr_url": "https://career.habr.com/leon456789"
+  },
+  "resume_projects": [
+    {
+      "title": "Pulseboard · backend для командной доски",
+      "text": "FastAPI-сервис для проектов и задач. Реализованы мультитенантная модель данных, JWT/RBAC, API, идемпотентные webhooks, фоновые задачи и WebSocket-события. Стек: PostgreSQL, SQLAlchemy, Redis/Celery, Docker Compose, Pytest, OpenAPI.",
+      "links": [
+        {"label": "Демо", "url": "https://leonid-portfolio.onrender.com/pulseboard.html"},
+        {"label": "API", "url": "https://portfolio-pulseboard-demo.onrender.com/docs"},
+        {"label": "Код", "url": "https://github.com/leonidchekin55/developer-portfolio-python-ai"}
+      ]
+    },
+    {
+      "title": "Knowledge Assistant · поиск по документам",
+      "text": "Приложение обрабатывает PDF, DOCX и TXT, индексирует фрагменты и возвращает ответы с найденными источниками. Мой вклад — backend и API, изоляция документов и истории по аккаунтам, поиск и интеграция AI-маршрутов. Стек: FastAPI, React, RAG, Qdrant, Ollama/OpenRouter.",
+      "links": [
+        {"label": "Демо", "url": "https://portfolio-knowledge-demo.onrender.com"},
+        {"label": "Архитектура и код", "url": "https://github.com/leonidchekin55/developer-portfolio-python-ai"}
+      ]
+    },
+    {
+      "title": "City Sentinel · мониторинг оборудования",
+      "text": "В командном MVP отвечаю за backend: API телеметрии с временной агрегацией, endpoint прогнозов и score-алерты. Подготовил миграции и API-контракт; 17 backend-тестов Pytest проходят. Реализован базовый ML-пайплайн; сбор MQTT-данных и интеграция ML-сервиса запланированы.",
+      "links": [{"label": "Демо", "url": "https://city-sentinel-frontend.onrender.com/"}]
+    },
+    {
+      "title": "Платёжная интеграция · Tilda, Т-Банк и АТОЛ Онлайн",
+      "text": "Реализовал проверку статусов платежа и передачу данных для фискализации. Заказчик принял работу; исходный код и детали проекта закрыты."
+    },
+    {
+      "title": "AI-интеграции и автоматизация",
+      "text": "Разрабатывал обработку входящих данных с семантической дедупликацией и передачей результатов в CRM и Telegram, а также автоматизацию повторяемых операций. Коммерческие материалы не публикуются."
+    },
+    {
+      "title": "RSS Publisher · AI-новостной пайплайн",
+      "text": "Python-пайплайн собирает полные тексты RSS-новостей, удаляет смысловые дубликаты и готовит публикации для Telegram с локальной LLM. Стек: Python, Ollama, embeddings, PostgreSQL.",
+      "links": [{"label": "Код", "url": "https://github.com/leonidchekin55/ai-news-rss-bot"}]
+    }
+  ],
+  "new_projects": []
+}
