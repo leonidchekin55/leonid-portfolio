@@ -66,5 +66,36 @@
       "links": [{"label": "Код", "url": "https://github.com/leonidchekin55/ai-news-rss-bot"}]
     }
   ],
-  "new_projects": []
+  "new_projects": [
+    {
+      "slug": "ai-engineer-six-demos",
+      "title_ru": "AI Engineer Portfolio · шесть демо",
+      "title_en": "AI Engineer Portfolio · six demos",
+      "status_ru": "Учебный проект · 6 демонстраций",
+      "status_en": "Personal learning project · six demos",
+      "role_ru": "Моя роль: спроектировал структуру и собрал демонстрационный набор сервисов.",
+      "role_en": "My role: designed the structure and built a set of demonstration services.",
+      "summary_ru": "Шесть отдельных FastAPI-приложений: менеджер заявок с подтверждением действий, поиск по документам с источниками, пакетная обработка файлов, evals на тестовом наборе, мониторинг и безопасный агент. Публичное демо использует SQLite и mock-режим; реальные CRM/email-записи и платные модели не подключены.",
+      "summary_en": "Six separate FastAPI apps: lead management with approval, cited document search, batch file processing, evals on a sample dataset, monitoring, and a secure agent. The public demo uses SQLite and mock mode; real CRM/email writes and paid model APIs are not connected.",
+      "tech": "Python / FastAPI / SQLAlchemy / Docker Compose / PostgreSQL + pgvector / Redis + Celery / Render Free",
+      "links": [
+        {
+          "label_ru": "Открыть демо",
+          "label_en": "Open demo",
+          "url": "https://leonid-ai-engineer-portfolio.onrender.com/"
+        },
+        {
+          "label_ru": "Swagger API",
+          "label_en": "Swagger API",
+          "url": "https://leonid-ai-engineer-portfolio.onrender.com/docs"
+        },
+        {
+          "label_ru": "Исходный код",
+          "label_en": "Source code",
+          "url": "https://github.com/leonidchekin55/developer-portfolio-python-ai/tree/codex/ai-engineer-render-free/ai-engineer-portfolio"
+        }
+      ],
+      "include_in_resume": false
+    }
+  ]
 }
