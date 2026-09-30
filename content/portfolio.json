@@ -80,6 +80,11 @@
       "tech": "Python / FastAPI / SQLAlchemy / Docker Compose / PostgreSQL + pgvector / Redis + Celery / Render Free",
       "links": [
         {
+          "label_ru": "Видеообзор · 2 минуты",
+          "label_en": "2-minute narrated video tour",
+          "url": "https://leonid-portfolio.onrender.com/ai-engineer-tour.html"
+        },
+        {
           "label_ru": "Интерактивное демо · все 6",
           "label_en": "Try all 6 interactive demos",
           "url": "https://leonid-ai-engineer-portfolio.onrender.com/sandbox"
