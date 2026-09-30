@@ -2,6 +2,8 @@
 
 Project records live in [`content/portfolio.json`](../content/portfolio.json). Add each new project once under `new_projects`, then commit and push that file to `main`. GitHub Actions will validate the entry, add it to both language versions, rebuild the Russian PDF resume, synchronize the Google Doc (after one-time setup below), and push the generated files. Render deploys the site from that push.
 
+GitHub Actions also checks your public repositories once a day. When it finds a new repository, it opens an issue with the repository details and a checklist for the facts GitHub cannot know (your role, project status, and results). After you add those verified details to `content/portfolio.json` and push to `main`, the site, PDF, and Google Doc update automatically. The first scan covers repositories created after the discovery baseline in [`content/github-project-discovery.json`](../content/github-project-discovery.json).
+
 Only enter facts you can support. The generator does not infer your role, results, or technology from a project name.
 
 ## Add a project
