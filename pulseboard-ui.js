@@ -1,6 +1,8 @@
 (() => {
   const API = 'https://portfolio-pulseboard-demo.onrender.com/api/v1/demo';
   const TOKEN_KEY = 'pulseboard-demo-token-v1';
+  const memory = window.sessionStorage;
+  const memory = window.sessionStorage;
   const statuses = [
     { id: 'todo', title: 'К выполнению', next: 'Начать' },
     { id: 'doing', title: 'В работе', next: 'Завершить' },
@@ -10,7 +12,7 @@
   const esc = (value) => String(value).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]);
   const filter = $('project-filter');
   const board = $('board');
-  let token = localStorage.getItem(TOKEN_KEY);
+  let token = memory.getItem(TOKEN_KEY);
   let data = { projects: [], tasks: [] };
   let ready = false;
   let busy = false;
@@ -35,7 +37,7 @@
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(payload.detail || `API недоступен (${response.status})`);
     token = payload.access_token;
-    localStorage.setItem(TOKEN_KEY, token);
+    memory.setItem(TOKEN_KEY, token);
   };
   const setBusy = value => {
     busy = value;
