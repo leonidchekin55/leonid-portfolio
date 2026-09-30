@@ -45,9 +45,6 @@ jobs:
       - name: Authenticate to Google Cloud with GitHub OIDC
         if: ${{ vars.GOOGLE_WORKLOAD_IDENTITY_PROVIDER != '' && vars.GOOGLE_SERVICE_ACCOUNT_EMAIL != '' && vars.GOOGLE_RESUME_DOC_ID != '' }}
         uses: google-github-actions/auth@v2
-        env:
-          GOOGLE_WORKLOAD_IDENTITY_PROVIDER: ${{ vars.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
-          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ vars.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
         with:
           workload_identity_provider: ${{ vars.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ vars.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
