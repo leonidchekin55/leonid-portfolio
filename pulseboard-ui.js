@@ -2,7 +2,6 @@
   const API = 'https://portfolio-pulseboard-demo.onrender.com/api/v1/demo';
   const TOKEN_KEY = 'pulseboard-demo-token-v1';
   const memory = window.sessionStorage;
-  const memory = window.sessionStorage;
   const statuses = [
     { id: 'todo', title: 'К выполнению', next: 'Начать' },
     { id: 'doing', title: 'В работе', next: 'Завершить' },

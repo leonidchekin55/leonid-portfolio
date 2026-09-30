@@ -9,7 +9,7 @@ import urllib.request
 SERVICES = {
     "portfolio": (
         "https://leonid-portfolio.onrender.com",
-        ("/", "/pulseboard.html", "/ai-engineer-tour.html", "/assets/ai-engineer-portfolio-tour.srt", "/assets/ai-engineer-portfolio-tour.mp4"),
+        ("/", "/pulseboard.html", "/pulseboard-ui.js?v=5", "/ai-engineer-tour.html", "/assets/ai-engineer-portfolio-tour.srt", "/assets/ai-engineer-portfolio-tour.mp4"),
     ),
     "pulseboard": (
         "https://portfolio-pulseboard-demo.onrender.com",
@@ -53,6 +53,8 @@ def main() -> None:
             if path == "/05-production/ready":
                 ready = json.loads(body)
                 check(ready.get("status") == "ready" and ready.get("llm_mode") == "mock", "AI portfolio ready in zero-cost mock mode")
+            if path == "/pulseboard-ui.js?v=5":
+                check(body.count(b"const memory") == 1 and b"window.sessionStorage" in body, "Pulseboard script loads once and keeps tokens tab-scoped")
             if path == "/openapi.json" and name in REQUIRED:
                 missing = REQUIRED[name] - set(json.loads(body).get("paths", {}))
                 check(not missing, f"{name} OpenAPI includes required demo routes")

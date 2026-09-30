@@ -1,0 +1,39 @@
+name: Website quality
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'pulseboard-ui.js'
+      - 'pulseboard-ui.css'
+      - 'scripts/audit.mjs'
+      - 'scripts/check_website_source.mjs'
+      - 'assets/**'
+      - 'downloads/**'
+      - '.github/workflows/website-quality.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-website-quality
+  cancel-in-progress: false
+
+jobs:
+  source-and-live-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Parse Pulseboard JavaScript
+        run: node --check pulseboard-ui.js
+      - name: Validate local website markup and links
+        run: node scripts/check_website_source.mjs
+      - name: Check published pages and assets
+        run: node scripts/audit.mjs
