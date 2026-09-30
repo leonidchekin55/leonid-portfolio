@@ -9,6 +9,7 @@ on:
       - "scripts/sync_google_doc.py"
       - "index.html"
       - "en.html"
+      - "requirements-automation.txt"
       - ".github/workflows/refresh-portfolio.yml"
   workflow_dispatch:
 

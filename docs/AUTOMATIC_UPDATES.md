@@ -43,13 +43,16 @@ Copy this object into the `new_projects` array and replace every example value:
 The site and downloadable PDF can refresh without Google credentials. To let GitHub Actions edit the Google Doc too:
 
 1. Create a Google Cloud service account and enable the Google Docs API for its project.
-2. Create a JSON key for that service account.
-3. Share the resume document with the service account email as an editor.
-4. In GitHub repository **Settings → Secrets and variables → Actions**, add the JSON key as secret `GOOGLE_SERVICE_ACCOUNT_JSON` and add `GOOGLE_RESUME_DOC_ID` as a repository variable. The document ID is the value between `/document/d/` and `/edit` in its URL.
+2. Create a Workload Identity Federation pool and an OIDC provider for `https://token.actions.githubusercontent.com`. Map `google.subject = assertion.sub` and `attribute.repository = assertion.repository`, and restrict the provider condition to your repository and `refs/heads/main`.
+3. Grant that repository identity the `Workload Identity User` role on the service account. Share the resume document with the service account email as an editor.
+4. In GitHub repository **Settings → Secrets and variables → Actions → Variables**, add:
+   - `GOOGLE_WORKLOAD_IDENTITY_PROVIDER` — the full provider resource name, such as `projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID`.
+   - `GOOGLE_SERVICE_ACCOUNT_EMAIL` — the service account email.
+   - `GOOGLE_RESUME_DOC_ID` — the value between `/document/d/` and `/edit` in the document URL.
 5. Under **Settings → Actions → General → Workflow permissions**, allow read and write access if the workflow cannot push its generated files.
 6. Run **Actions → Refresh portfolio and resume → Run workflow** once to confirm the connection.
 
-Keep the service account key only in the GitHub Actions secret; never commit it to this repository. If the two settings are absent, the workflow still refreshes the site and PDF and reports that Google Doc sync was skipped.
+Workload Identity Federation uses short-lived credentials, so no service-account JSON key needs to be stored in GitHub. If the settings are absent, the workflow still refreshes the site and PDF and reports that Google Doc sync was skipped.
 
 ## What refreshes automatically
 
