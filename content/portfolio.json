@@ -120,8 +120,13 @@
       "tech": "Cloudflare Workers / D1 / JavaScript / Telegram Bot API / Webhooks / SQL",
       "links": [
         {
-          "label_ru": "CRM · вход по паролю",
-          "label_en": "CRM · password required",
+          "label_ru": "Открытое демо без входа",
+          "label_en": "Open demo · no sign-in",
+          "url": "https://liniya-crm-leads.leonidchekin55.workers.dev/demo"
+        },
+        {
+          "label_ru": "Вход менеджера",
+          "label_en": "Manager sign-in",
           "url": "https://liniya-crm-leads.leonidchekin55.workers.dev/"
         },
         {
