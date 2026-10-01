@@ -106,6 +106,36 @@
         }
       ],
       "include_in_resume": false
+    },
+    {
+      "slug": "liniya-telegram-crm",
+      "title_ru": "Линия — CRM заявок с Telegram-ботом",
+      "title_en": "Liniya — lead CRM with a Telegram bot",
+      "status_ru": "Личный проект · рабочее демо",
+      "status_en": "Personal project · live demo",
+      "role_ru": "Моя роль: спроектировал и реализовал CRM, подключил Telegram Bot API и развернул сервис.",
+      "role_en": "My role: designed and built the CRM, integrated the Telegram Bot API, and deployed the service.",
+      "summary_ru": "CRM с общей базой лидов, входом по паролю, ручным добавлением, поиском, тегами и статусами. Telegram-бот пошагово собирает заявку и сохраняет её в базе через защищённый webhook. Проверены основные сценарии CRM и поступление тестовой заявки из бота.",
+      "summary_en": "A CRM with a shared lead database, password-protected access, manual entry, search, tags, and statuses. A Telegram bot collects lead details step by step and saves them through a protected webhook. Core CRM flows and a test bot submission were verified.",
+      "tech": "Cloudflare Workers / D1 / JavaScript / Telegram Bot API / Webhooks / SQL",
+      "links": [
+        {
+          "label_ru": "Открыть CRM",
+          "label_en": "Open CRM",
+          "url": "https://liniya-crm-leads.leonidchekin55.workers.dev/"
+        },
+        {
+          "label_ru": "Исходный код",
+          "label_en": "Source code",
+          "url": "https://github.com/leonidchekin55/liniya-crm-leads"
+        },
+        {
+          "label_ru": "Telegram-бот",
+          "label_en": "Telegram bot",
+          "url": "https://t.me/liniya_requests_281026_bot"
+        }
+      ],
+      "include_in_resume": true
     }
   ]
 }
