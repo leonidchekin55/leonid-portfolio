@@ -6,7 +6,7 @@
     "email": "leonidchekin55@gmail.com",
     "telegram": "@leonchek97",
     "location": "Новороссийск, Россия",
-    "summary": "Python-разработчик с коммерческим опытом с 2022 года. Основной фокус — backend-сервисы, API и интеграции; применяю AI для поиска по документам и автоматизации рабочих процессов. В проектах уточняю сценарии, реализую и проверяю решения, подготавливаю запуск и документацию. Использую AI-инструменты в разработке и лично отвечаю за логику, интеграции, проверку результатов, тестирование и исправление ошибок.",
+    "summary": "Python-разработчик с коммерческим опытом с 2022 года. Разрабатываю backend-сервисы, API и интеграции на FastAPI; применяю AI для поиска по документам и автоматизации. Веду задачи от уточнения сценария до реализации, тестирования и запуска. В проектной команде реализовал MQTT-контур мониторинга: приём телеметрии, агрегацию и ML-алерты.",
     "competencies": [
       "Backend: Python, FastAPI, REST API, SQLAlchemy, PostgreSQL, Alembic, Redis, Celery, JWT/RBAC.",
       "Интеграции: webhooks, внешние API, CRM, Telegram Bot API и Mini Apps, n8n; платёжный и фискальный сценарий Tilda / Т-Банк / АТОЛ.",
@@ -34,23 +34,47 @@
       "title": "Pulseboard · backend для командной доски",
       "text": "FastAPI-сервис для проектов и задач. Реализованы мультитенантная модель данных, JWT/RBAC, API, идемпотентные webhooks, фоновые задачи и WebSocket-события. Стек: PostgreSQL, SQLAlchemy, Redis/Celery, Docker Compose, Pytest, OpenAPI.",
       "links": [
-        {"label": "Демо", "url": "https://leonid-portfolio.onrender.com/pulseboard.html"},
-        {"label": "API", "url": "https://portfolio-pulseboard-demo.onrender.com/docs"},
-        {"label": "Код", "url": "https://github.com/leonidchekin55/developer-portfolio-python-ai"}
+        {
+          "label": "Демо",
+          "url": "https://leonid-portfolio.onrender.com/pulseboard.html"
+        },
+        {
+          "label": "API",
+          "url": "https://portfolio-pulseboard-demo.onrender.com/docs"
+        },
+        {
+          "label": "Код",
+          "url": "https://github.com/leonidchekin55/developer-portfolio-python-ai"
+        }
       ]
     },
     {
       "title": "Knowledge Assistant · поиск по документам",
-      "text": "Приложение обрабатывает PDF, DOCX и TXT, индексирует фрагменты и возвращает ответы с найденными источниками. Мой вклад — backend и API, изоляция документов и истории по аккаунтам, поиск и интеграция AI-маршрутов. Стек: FastAPI, React, RAG, Qdrant, Ollama/OpenRouter.",
+      "text": "Приложение обрабатывает PDF, DOCX и TXT, индексирует фрагменты и возвращает ответы с найденными источниками. Мой вклад — backend, API, изоляция документов и истории по аккаунтам, поиск и AI-интеграции. В публичном демо используются безопасные тестовые данные и доступный режим обработки; локальная сборка поддерживает Qdrant и Ollama.",
       "links": [
-        {"label": "Демо", "url": "https://portfolio-knowledge-demo.onrender.com"},
-        {"label": "Архитектура и код", "url": "https://github.com/leonidchekin55/developer-portfolio-python-ai"}
+        {
+          "label": "Демо",
+          "url": "https://portfolio-knowledge-demo.onrender.com"
+        },
+        {
+          "label": "Архитектура и код",
+          "url": "https://github.com/leonidchekin55/developer-portfolio-python-ai"
+        }
       ]
     },
     {
       "title": "City Sentinel · мониторинг оборудования",
-      "text": "В командном MVP отвечаю за backend: API телеметрии с временной агрегацией, endpoint прогнозов и score-алерты. Подготовил миграции и API-контракт; 17 backend-тестов Pytest проходят. Реализован базовый ML-пайплайн; сбор MQTT-данных и интеграция ML-сервиса запланированы.",
-      "links": [{"label": "Демо", "url": "https://city-sentinel-frontend.onrender.com/"}]
+      "text": "В командном проекте реализовал MQTT-контур с центральным брокером, валидацией телеметрии, durable inbox в PostgreSQL, записью в InfluxDB, статусами online/offline и симулятором ESP32. Добавил 5-минутную агрегацию и ML-оценку аномалий/алертов. Код — в проектной ветке; production-запуск зависит от настройки облачного окружения.",
+      "links": [
+        {
+          "label": "Демо",
+          "url": "https://city-sentinel-frontend.onrender.com/"
+        },
+        {
+          "label": "Репозиторий",
+          "url": "https://github.com/leonidchekin55/city-sentinel/tree/codex/mqtt-contour-20260918"
+        }
+      ]
     },
     {
       "title": "Платёжная интеграция · Tilda, Т-Банк и АТОЛ Онлайн",
@@ -63,7 +87,12 @@
     {
       "title": "RSS Publisher · AI-новостной пайплайн",
       "text": "Python-пайплайн собирает полные тексты RSS-новостей, удаляет смысловые дубликаты и готовит публикации для Telegram с локальной LLM. Стек: Python, Ollama, embeddings, PostgreSQL.",
-      "links": [{"label": "Код", "url": "https://github.com/leonidchekin55/ai-news-rss-bot"}]
+      "links": [
+        {
+          "label": "Код",
+          "url": "https://github.com/leonidchekin55/ai-news-rss-bot"
+        }
+      ]
     }
   ],
   "new_projects": [
@@ -73,10 +102,10 @@
       "title_en": "AI Engineer Portfolio · six demos",
       "status_ru": "Учебный проект · 6 демонстраций",
       "status_en": "Personal learning project · six demos",
-      "role_ru": "Моя роль: спроектировал структуру и собрал демонстрационный набор сервисов.",
-      "role_en": "My role: designed the structure and built a set of demonstration services.",
+      "role_ru": "Моя роль: разработал шесть демонстрационных FastAPI-приложений и их общую архитектуру.",
+      "role_en": "My role: built six demonstration FastAPI apps and their shared architecture.",
       "summary_ru": "Шесть отдельных FastAPI-приложений: менеджер заявок с подтверждением действий, поиск по документам с источниками, пакетная обработка файлов, evals на тестовом наборе, мониторинг и безопасный агент. Публичное демо использует SQLite и mock-режим; реальные CRM/email-записи и платные модели не подключены.",
-      "summary_en": "Six separate FastAPI apps: lead management with approval, cited document search, batch file processing, evals on a sample dataset, monitoring, and a secure agent. The public demo uses SQLite and mock mode; real CRM/email writes and paid model APIs are not connected.",
+      "summary_en": "Six separate FastAPI apps: lead intake with approval, cited document search, batch file processing, evaluations, monitoring, and safe agent actions. Public demos use SQLite and mock mode; real CRM/email writes and paid model APIs are not connected.",
       "tech": "Python / FastAPI / SQLAlchemy / Docker Compose / PostgreSQL + pgvector / Redis + Celery / Render Free",
       "links": [
         {
@@ -105,7 +134,7 @@
           "url": "https://github.com/leonidchekin55/developer-portfolio-python-ai/tree/codex/ai-engineer-render-free/ai-engineer-portfolio"
         }
       ],
-      "include_in_resume": false
+      "include_in_resume": true
     },
     {
       "slug": "liniya-telegram-crm",
@@ -115,8 +144,8 @@
       "status_en": "Personal project · live demo",
       "role_ru": "Моя роль: спроектировал и реализовал CRM, подключил Telegram Bot API и развернул сервис.",
       "role_en": "My role: designed and built the CRM, integrated the Telegram Bot API, and deployed the service.",
-      "summary_ru": "CRM с общей базой лидов, входом по паролю, ручным добавлением, поиском, тегами и статусами. Telegram-бот пошагово собирает заявку и сохраняет её в базе через защищённый webhook. Проверены основные сценарии CRM и поступление тестовой заявки из бота.",
-      "summary_en": "A CRM with a shared lead database, password-protected access, manual entry, search, tags, and statuses. A Telegram bot collects lead details step by step and saves them through a protected webhook. Core CRM flows and a test bot submission were verified.",
+      "summary_ru": "CRM с общей базой лидов, входом по паролю, ручным добавлением, поиском, тегами и статусами. Telegram-бот собирает заявки пошагово и сохраняет через webhook. Проверены основные сценарии и тестовая заявка; проект опубликован как рабочее демо.",
+      "summary_en": "A CRM with a shared lead database, password-protected access, manual entry, search, tags, and statuses. A Telegram bot collects leads step by step and saves them through a webhook. Core flows and a test submission were verified; the project is published as a live demo.",
       "tech": "Cloudflare Workers / D1 / JavaScript / Telegram Bot API / Webhooks / SQL",
       "links": [
         {
@@ -140,6 +169,34 @@
           "url": "https://t.me/liniya_requests_281026_bot"
         }
       ],
+      "include_in_resume": true
+    },
+    {
+      "slug": "transfer-api",
+      "title_ru": "Transfer API · идемпотентная обработка переводов",
+      "title_en": "Transfer API · idempotent transfer processing",
+      "status_ru": "Backend · API-прототип",
+      "status_en": "Backend · API prototype",
+      "role_ru": "Моя роль: разработал API, схему хранения и обработку событий.",
+      "role_en": "My role: built the API, storage schema, and event handling.",
+      "summary_ru": "FastAPI-сервис с Bearer-авторизацией, PostgreSQL, миграциями Alembic и защитой от повторов по external_id через атомарную запись. Подписывает webhook-события HMAC-SHA256 и повторяет доставку ограниченное число раз. Не подключён к блокчейну или реальным платёжным сетям.",
+      "summary_en": "FastAPI service with bearer authentication, PostgreSQL, Alembic migrations, and external_id idempotency enforced by an atomic insert. Signs webhook events with HMAC-SHA256 and retries delivery a bounded number of times. It is not connected to a blockchain or real payment network.",
+      "tech": "Python / FastAPI / PostgreSQL / Alembic / HMAC-SHA256 / Webhooks",
+      "links": [],
+      "include_in_resume": true
+    },
+    {
+      "slug": "cdl-scout",
+      "title_ru": "CDL Scout · мониторинг Telegram-групп",
+      "title_en": "CDL Scout · Telegram group monitoring",
+      "status_ru": "Личный проект · прототип",
+      "status_en": "Personal project · prototype",
+      "role_ru": "Моя роль: разработал сбор, фильтрацию и экспорт лидов.",
+      "role_en": "My role: built lead collection, filtering, and export.",
+      "summary_ru": "Отслеживает доступные авторизованному оператору группы, локальными правилами выделяет возможных CDL A / OTR соискателей, устраняет дубли в SQLite и сохраняет записи в Google Sheets. Не пишет кандидатам; запуск требует учётных данных Telegram и доступа к таблице.",
+      "summary_en": "Monitors groups available to an authorized operator, uses local rules to identify potential CDL A / OTR candidates, deduplicates records in SQLite, and exports them to Google Sheets. It does not message candidates; operation requires Telegram credentials and sheet access.",
+      "tech": "Python / Telegram / SQLite / Google Sheets API",
+      "links": [],
       "include_in_resume": true
     }
   ]
