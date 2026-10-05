@@ -198,6 +198,31 @@
       "tech": "Python / Telegram / SQLite / Google Sheets API",
       "links": [],
       "include_in_resume": true
+    },
+    {
+      "slug": "ai-support-assistant",
+      "title_ru": "AI Support Assistant · поддержка в Telegram и веб-чате",
+      "title_en": "AI Support Assistant · Telegram and web support demo",
+      "status_ru": "Личный проект · публичное демо",
+      "status_en": "Personal project · public demo",
+      "role_ru": "Моя роль: спроектировал и собрал Telegram-бота, web-чат и backend API.",
+      "role_en": "My role: designed and built the Telegram bot, web chat, and backend API.",
+      "summary_ru": "Ассистент маршрутизирует вопросы, ищет ответы в FAQ через PostgreSQL/pgvector, учитывает историю диалога и передаёт запросы менеджеру. Demo mode работает без внешнего API-ключа; подключение OpenAI-compatible LLM предусмотрено. Есть административные endpoints, Docker Compose и автоматические тесты.",
+      "summary_en": "The assistant routes questions, retrieves FAQ answers with PostgreSQL/pgvector, uses conversation context, and hands requests to a human manager. Demo mode runs without an external API key; an OpenAI-compatible LLM can be configured. Includes admin endpoints, Docker Compose, and automated tests.",
+      "tech": "Python 3.12 / FastAPI / aiogram 3 / SQLAlchemy Async / PostgreSQL + pgvector / RAG / Docker Compose / Pytest / HTML, CSS, JavaScript",
+      "links": [
+        {
+          "label_ru": "Веб-демо",
+          "label_en": "Web demo",
+          "url": "https://cartoons-available-highland-fire.trycloudflare.com/"
+        },
+        {
+          "label_ru": "Telegram-бот",
+          "label_en": "Telegram bot",
+          "url": "https://t.me/sever_ai_support_demo_bot"
+        }
+      ],
+      "include_in_resume": true
     }
   ]
 }
