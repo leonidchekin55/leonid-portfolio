@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - '*.html'
+      - 'content/portfolio.json'
+      - 'server/**'
+      - 'atlas-studio-demo.html'
       - 'pulseboard-ui.js'
       - 'pulseboard-ui.css'
       - 'scripts/audit.mjs'
@@ -35,5 +38,17 @@ jobs:
         run: node --check pulseboard-ui.js
       - name: Validate local website markup and links
         run: node scripts/check_website_source.mjs
+      - name: Validate ATLAS showcase modules
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync} from 'node:fs';
+          const html = readFileSync('atlas-studio-demo.html', 'utf8');
+          const modules = (html.match(/^\s*\['/gm) || []).length;
+          if (modules !== 15) throw new Error(`Expected 15 modules, found ${modules}`);
+          for (const label of ['Все 15', 'Данные', 'Запись', 'Заявки']) {
+            if (!html.includes(label)) throw new Error(`Missing demo flow: ${label}`);
+          }
+          console.log('PASS: 15 modules and key showcase flows present');
+          NODE
       - name: Check published pages and assets
         run: node scripts/audit.mjs

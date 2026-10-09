@@ -97,6 +97,26 @@
   ],
   "new_projects": [
     {
+      "slug": "atlas-studio",
+      "title_ru": "ATLAS Studio · платформа бизнес-автоматизации",
+      "title_en": "ATLAS Studio · business automation platform",
+      "status_ru": "Личный проект · локальный MVP · 15 модулей",
+      "status_en": "Personal project · local MVP · 15 modules",
+      "role_ru": "Моя роль: собрал интегрированный локальный MVP на Python/FastAPI/SQLite.",
+      "role_en": "My role: built an integrated local MVP with Python/FastAPI/SQLite.",
+      "summary_ru": "Единая кодовая база с 15 функциональными демомодулями: обработка заявок, CRM, запись, поиск по знаниям, работа с CSV/PDF, автоматизация и аналитика. Доступна безопасная браузерная витрина на синтетических данных. Это прототип, не production SaaS: полноценная авторизация, multitenancy, billing и боевые интеграции не реализованы.",
+      "summary_en": "One codebase with 15 functional demo modules for lead handling, CRM, booking, knowledge search, CSV/PDF workflows, automation, and analytics. A safe browser showcase uses synthetic data. This is a prototype, not a production SaaS: full authentication, multitenancy, billing, and live integrations are not implemented.",
+      "tech": "Python / FastAPI / SQLite / REST API / HTML, CSS, JavaScript / Pytest",
+      "links": [
+        {
+          "label_ru": "Открыть безопасную витрину",
+          "label_en": "Open safe showcase",
+          "url": "https://leonid-portfolio.onrender.com/atlas-studio-demo.html"
+        }
+      ],
+      "include_in_resume": true
+    },
+    {
       "slug": "ai-engineer-six-demos",
       "title_ru": "AI Engineer Portfolio · шесть демо",
       "title_en": "AI Engineer Portfolio · six demos",
@@ -203,19 +223,14 @@
       "slug": "ai-support-assistant",
       "title_ru": "AI Support Assistant · поддержка в Telegram и веб-чате",
       "title_en": "AI Support Assistant · Telegram and web support demo",
-      "status_ru": "Личный проект · публичное демо",
-      "status_en": "Personal project · public demo",
+      "status_ru": "Личный проект · временная ссылка недоступна",
+      "status_en": "Personal project · temporary demo unavailable",
       "role_ru": "Моя роль: спроектировал и собрал Telegram-бота, web-чат и backend API.",
       "role_en": "My role: designed and built the Telegram bot, web chat, and backend API.",
-      "summary_ru": "Ассистент маршрутизирует вопросы, ищет ответы в FAQ через PostgreSQL/pgvector, учитывает историю диалога и передаёт запросы менеджеру. Demo mode работает без внешнего API-ключа; подключение OpenAI-compatible LLM предусмотрено. Есть административные endpoints, Docker Compose и автоматические тесты.",
-      "summary_en": "The assistant routes questions, retrieves FAQ answers with PostgreSQL/pgvector, uses conversation context, and hands requests to a human manager. Demo mode runs without an external API key; an OpenAI-compatible LLM can be configured. Includes admin endpoints, Docker Compose, and automated tests.",
+      "summary_ru": "Ассистент маршрутизирует вопросы, ищет ответы в FAQ через PostgreSQL/pgvector, учитывает историю диалога и передаёт запросы менеджеру. Demo mode работает без внешнего API-ключа; подключение OpenAI-compatible LLM предусмотрено. Есть административные endpoints, Docker Compose и автоматические тесты. Веб-ссылка была временным туннелем и сейчас недоступна.",
+      "summary_en": "The assistant routes questions, retrieves FAQ answers with PostgreSQL/pgvector, uses conversation context, and hands requests to a human manager. Demo mode runs without an external API key; an OpenAI-compatible LLM can be configured. Includes admin endpoints, Docker Compose, and automated tests. The web link used a temporary tunnel and is currently unavailable.",
       "tech": "Python 3.12 / FastAPI / aiogram 3 / SQLAlchemy Async / PostgreSQL + pgvector / RAG / Docker Compose / Pytest / HTML, CSS, JavaScript",
       "links": [
-        {
-          "label_ru": "Веб-демо",
-          "label_en": "Web demo",
-          "url": "https://cartoons-available-highland-fire.trycloudflare.com/"
-        },
         {
           "label_ru": "Telegram-бот",
           "label_en": "Telegram bot",
