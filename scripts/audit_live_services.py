@@ -9,7 +9,7 @@ import urllib.request
 SERVICES = {
     "portfolio": (
         "https://leonid-portfolio.onrender.com",
-        ("/", "/pulseboard.html", "/pulseboard-ui.js?v=5", "/ai-engineer-tour.html", "/assets/ai-engineer-portfolio-tour.srt", "/assets/ai-engineer-portfolio-tour.mp4"),
+        ("/", "/en.html", "/atlas-studio-demo.html", "/pulseboard.html", "/pulseboard-ui.js?v=5", "/ai-engineer-tour.html", "/assets/ai-engineer-portfolio-tour.srt", "/assets/ai-engineer-portfolio-tour.mp4"),
     ),
     "pulseboard": (
         "https://portfolio-pulseboard-demo.onrender.com",
@@ -55,6 +55,9 @@ def main() -> None:
                 check(ready.get("status") == "ready" and ready.get("llm_mode") == "mock", "AI portfolio ready in zero-cost mock mode")
             if path == "/pulseboard-ui.js?v=5":
                 check(body.count(b"const memory") == 1 and b"window.sessionStorage" in body, "Pulseboard script loads once and keeps tokens tab-scoped")
+            if path == "/atlas-studio-demo.html":
+                modules = sum(line.lstrip().startswith(b"['") for line in body.splitlines())
+                check(modules == 15 and b"localhost" not in body and b"127.0.0.1" not in body, "ATLAS showcase includes 15 modules and no local backend URLs")
             if path == "/openapi.json" and name in REQUIRED:
                 missing = REQUIRED[name] - set(json.loads(body).get("paths", {}))
                 check(not missing, f"{name} OpenAPI includes required demo routes")
