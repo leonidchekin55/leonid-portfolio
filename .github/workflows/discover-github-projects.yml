@@ -2,7 +2,7 @@ name: Discover new GitHub portfolio projects
 
 on:
   schedule:
-    - cron: '23 8 * * *'
+    - cron: '17 */4 * * *'
   workflow_dispatch:
 
 permissions:

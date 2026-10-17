@@ -1,40 +1,48 @@
 # Updating the portfolio and resume
 
-Project records live in [`content/portfolio.json`](../content/portfolio.json). Add each new project once under `new_projects`, then commit and push that file to `main`. GitHub Actions will validate the entry, add it to both language versions, rebuild the Russian PDF resume, synchronize the Google Doc (after one-time setup below), and push the generated files. Render deploys the site from that push.
+Project records live in [`content/portfolio.json`](../content/portfolio.json). A GitHub Action checks every four hours for new public repositories under your account and new pushes to public repositories, including external public repositories linked to project records. When it detects one, it opens a review issue with repository links and a JSON record to complete. The initial activity baseline is seeded from current public repositories, so old commits do not create a flood of issues.
 
-GitHub Actions also checks your public repositories once a day. When it finds a new repository, it opens an issue with the repository details and a checklist for the facts GitHub cannot know (your role, project status, and results). After you add those verified details to `content/portfolio.json` and push to `main`, the site, PDF, and Google Doc update automatically. The first scan covers repositories created after the discovery baseline in [`content/github-project-discovery.json`](../content/github-project-discovery.json).
+To prepare an update from an issue:
 
-Only enter facts you can support. The generator does not infer your role, results, or technology from a project name.
+1. Check the repository history and replace the JSON example with a complete, fact-checked record. Use `operation: "add"` and `collection: "new_projects"` for a new site card. For an existing entry use `operation: "update"` and select `new_projects` or `resume_projects` as the collection.
+2. Leave the exact comment `/portfolio-update` on the issue. The workflow builds the site and PDF, runs the Python, HTML, and link checks, and opens a pull request with the source and generated files from a separate branch. If a pull request for that issue is already open, edit that pull request instead of requesting another one.
+3. Review and merge the pull request. Only then do GitHub Actions regenerate the Russian and English pages, PDF resume, and connected Google Doc. Render deploys the merged `main` branch.
 
-## Add a project
+The workflow never publishes from an unreviewed issue. The repository itself cannot establish your role, project status, or results. Work in private repositories, local work, client work, or conversations outside public GitHub is not discoverable by the daily scan; add those updates through a verified issue or by editing `content/portfolio.json` directly in a pull request.
+
+## New project record
 
 Copy this object into the `new_projects` array and replace every example value:
 
 ```json
 {
-  "slug": "lowercase-project-name",
-  "title_ru": "Название проекта",
-  "title_en": "Project name",
-  "status_ru": "Клиентский проект · демо",
-  "status_en": "Client project · demo",
-  "role_ru": "Моя роль: Python-разработчик.",
-  "role_en": "My role: Python developer.",
-  "summary_ru": "Какую задачу решает проект и что вы сделали.",
-  "summary_en": "The problem the project solves and what you delivered.",
-  "tech": "Python / FastAPI / PostgreSQL",
-  "links": [
-    {
-      "label_ru": "Демо",
-      "label_en": "Demo",
-      "url": "https://example.com"
-    },
-    {
-      "label_ru": "Исходный код",
-      "label_en": "Source code",
-      "url": "https://github.com/username/repository"
-    }
-  ],
-  "include_in_resume": true
+  "operation": "add",
+  "collection": "new_projects",
+  "project": {
+    "slug": "lowercase-project-name",
+    "title_ru": "Название проекта",
+    "title_en": "Project name",
+    "status_ru": "Клиентский проект · демо",
+    "status_en": "Client project · demo",
+    "role_ru": "Моя роль: Python-разработчик.",
+    "role_en": "My role: Python developer.",
+    "summary_ru": "Какую задачу решает проект и что вы сделали.",
+    "summary_en": "The problem the project solves and what you delivered.",
+    "tech": "Python / FastAPI / PostgreSQL",
+    "links": [
+      {
+        "label_ru": "Демо",
+        "label_en": "Demo",
+        "url": "https://example.com"
+      },
+      {
+        "label_ru": "Исходный код",
+        "label_en": "Source code",
+        "url": "https://github.com/username/repository"
+      }
+    ],
+    "include_in_resume": true
+  }
 }
 ```
 

@@ -105,6 +105,10 @@
         {
           "label": "English demo",
           "url": "https://atelier-woocommerce-demo.onrender.com/?atelier_lang=en"
+        },
+        {
+          "label": "Исходный код",
+          "url": "https://github.com/leonidchekin55/atelier-woocommerce-demo"
         }
       ]
     }
@@ -274,6 +278,46 @@
           "label_ru": "Исходный код",
           "label_en": "Source code",
           "url": "https://github.com/NexaSTUD/fanhome-prototype"
+        }
+      ],
+      "include_in_resume": false
+    },
+    {
+      "slug": "arqa-shift-diary",
+      "title_ru": "ARQA · дневник смен водителя",
+      "title_en": "ARQA · Driver Shift Diary",
+      "status_ru": "Тестовое задание · локальный прототип",
+      "status_en": "Coding assignment · local prototype",
+      "role_ru": "Моя роль: доработал проверку данных и идемпотентность, проверил расчёты и повторы запросов.",
+      "role_en": "My role: refined input validation and idempotency, and verified calculations and request retries.",
+      "summary_ru": "FastAPI-приложение с API поездок и дневных сводок и адаптивным веб-интерфейсом. Проверяет суммы и интервалы времени, обрабатывает повторную отправку без дублей и возвращает конфликт, если повторный запрос меняет данные. Использует локальный JSON-файл только для однопроцессного прототипа; реальные платежи не обрабатываются.",
+      "summary_en": "A FastAPI app with trip and daily-summary APIs plus a responsive web interface. It validates amounts and time intervals, handles retries without duplicates, and returns a conflict when a repeated ID carries different data. Local JSON storage is intended for a single-process prototype; no real payments are processed.",
+      "tech": "Python / FastAPI / HTML / CSS / JavaScript / JSON / Pytest",
+      "links": [
+        {
+          "label_ru": "Исходный код",
+          "label_en": "Source code",
+          "url": "https://github.com/leonidchekin55/arqa-shift-diary"
+        }
+      ],
+      "include_in_resume": true
+    },
+    {
+      "slug": "crm-team-workflow-demo",
+      "title_ru": "CRM Team Workflow · инцидент автоматизации",
+      "title_en": "CRM Team Workflow · automation incident demo",
+      "status_ru": "Публичный UI-прототип · без backend",
+      "status_en": "Public UI prototype · no backend",
+      "role_ru": "Моя роль: собрал интерактивную демонстрацию процесса реагирования на ошибку автоматизации.",
+      "role_en": "My role: built an interactive demonstration of responding to an automation failure.",
+      "summary_ru": "Прототип показывает остановку сценария, исправление маршрутизации, тестовую заявку и безопасное возобновление процесса. Используются вымышленные данные; состояние меняется только в открытой странице. Реальной CRM-интеграции, backend и клиентских данных нет.",
+      "summary_en": "The prototype demonstrates pausing an automation, correcting its routing, testing with a sample request, and safely resuming the flow. It uses fictional data and only changes the open page state. There is no live CRM integration, backend, or customer data.",
+      "tech": "HTML / CSS / JavaScript / Interactive UI",
+      "links": [
+        {
+          "label_ru": "Исходный код",
+          "label_en": "Source code",
+          "url": "https://github.com/leonidchekin55/crm-team-workflow-demo"
         }
       ],
       "include_in_resume": false
