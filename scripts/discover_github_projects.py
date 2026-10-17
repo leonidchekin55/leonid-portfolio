@@ -165,6 +165,22 @@ def has_new_push(repo_id: str, pushed_at: str, previous_pushes: dict[str, str]) 
     return previous is not None and previous != pushed_at
 
 
+def get_linked_public_repository(repo_name: str) -> dict | None:
+    try:
+        repo, _ = api("GET", f"/repos/{quote(repo_name)}")
+    except RuntimeError as exc:
+        if "returned 404:" in str(exc):
+            print(f"Skipping unavailable linked repository {repo_name} (GitHub returned 404).")
+            return None
+        raise
+    if not isinstance(repo, dict):
+        raise RuntimeError(f"GitHub returned unexpected metadata for {repo_name}")
+    if repo.get("visibility", "public") != "public" or repo.get("archived") or repo.get("fork") or repo.get("is_template"):
+        print(f"Skipping non-public or inactive linked repository {repo_name}.")
+        return None
+    return repo
+
+
 def list_owned_repositories(owner: str) -> list[dict]:
     items: list[dict] = []
     page = 1
@@ -238,10 +254,8 @@ def main() -> None:
     ]
     known_repository_names = {repo["full_name"].lower() for repo in public_repositories}
     for repo_name in sorted(set(project_records) - known_repository_names):
-        repo, _ = api("GET", f"/repos/{quote(repo_name)}")
-        if not isinstance(repo, dict):
-            raise RuntimeError(f"GitHub returned unexpected metadata for {repo_name}")
-        if repo.get("visibility", "public") == "public" and not repo.get("archived") and not repo.get("fork") and not repo.get("is_template"):
+        repo = get_linked_public_repository(repo_name)
+        if repo:
             public_repositories.append(repo)
     for repo in public_repositories:
         repo_id = str(repo["id"])

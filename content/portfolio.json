@@ -69,10 +69,6 @@
         {
           "label": "Демо",
           "url": "https://city-sentinel-frontend.onrender.com/"
-        },
-        {
-          "label": "Репозиторий",
-          "url": "https://github.com/leonidchekin55/city-sentinel/tree/codex/mqtt-contour-20260918"
         }
       ]
     },

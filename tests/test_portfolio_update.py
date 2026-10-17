@@ -82,6 +82,14 @@ class PortfolioUpdateTests(unittest.TestCase):
         self.assertFalse(DISCOVERY.has_new_push("123", "2026-10-17T10:00:00Z", baseline))
         self.assertTrue(DISCOVERY.has_new_push("123", "2026-10-17T11:00:00Z", baseline))
 
+    def test_unavailable_linked_repository_does_not_stop_discovery(self):
+        with patch.object(DISCOVERY, "api", side_effect=RuntimeError("GitHub API GET returned 404: Not Found")):
+            self.assertIsNone(DISCOVERY.get_linked_public_repository("leonidchekin55/missing-repo"))
+
+        with patch.object(DISCOVERY, "api", side_effect=RuntimeError("GitHub API GET returned 500: Server error")):
+            with self.assertRaisesRegex(RuntimeError, "returned 500"):
+                DISCOVERY.get_linked_public_repository("leonidchekin55/flaky-api")
+
     def test_activity_issue_can_update_a_resume_project(self):
         project = {
             "title": "City Sentinel · мониторинг оборудования",
