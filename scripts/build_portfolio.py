@@ -113,9 +113,9 @@ def build_pdf(data: dict) -> None:
     title_style = ParagraphStyle("ResumeTitle", parent=styles["Title"], fontName="Resume-Bold", fontSize=22, leading=26, textColor=colors.HexColor("#172a24"), alignment=TA_LEFT, spaceAfter=3)
     subtitle = ParagraphStyle("ResumeSubtitle", parent=styles["Normal"], fontName="Resume", fontSize=11, leading=14, textColor=colors.HexColor("#44534a"), spaceAfter=2)
     contact = ParagraphStyle("ResumeContact", parent=styles["Normal"], fontName="Resume", fontSize=9, leading=11, textColor=colors.HexColor("#44534a"), spaceAfter=2)
-    h1 = ParagraphStyle("ResumeH1", parent=styles["Heading1"], fontName="Resume-Bold", fontSize=14, leading=17, textColor=colors.HexColor("#172a24"), spaceBefore=7, spaceAfter=3, keepWithNext=True)
-    h2 = ParagraphStyle("ResumeH2", parent=styles["Heading2"], fontName="Resume-Bold", fontSize=10.5, leading=13, textColor=colors.HexColor("#172a24"), spaceBefore=4, spaceAfter=2, keepWithNext=True)
-    body = ParagraphStyle("ResumeBody", parent=styles["BodyText"], fontName="Resume", fontSize=9.2, leading=11.5, textColor=colors.black, spaceAfter=3, splitLongWords=1)
+    h1 = ParagraphStyle("ResumeH1", parent=styles["Heading1"], fontName="Resume-Bold", fontSize=14, leading=17, textColor=colors.HexColor("#172a24"), spaceBefore=5, spaceAfter=2.5, keepWithNext=True)
+    h2 = ParagraphStyle("ResumeH2", parent=styles["Heading2"], fontName="Resume-Bold", fontSize=10.5, leading=13, textColor=colors.HexColor("#172a24"), spaceBefore=3, spaceAfter=1.5, keepWithNext=True)
+    body = ParagraphStyle("ResumeBody", parent=styles["BodyText"], fontName="Resume", fontSize=9, leading=11.2, textColor=colors.black, spaceAfter=2, splitLongWords=1)
     story: list = []
     profile = data["resume"]
     story.append(Paragraph(pdf_text(profile["name"]), title_style))
@@ -155,7 +155,7 @@ def build_pdf(data: dict) -> None:
         canvas.drawRightString(A4[0] - 54, 32, f'{doc.page}')
         canvas.restoreState()
 
-    document = SimpleDocTemplate(str(PDF_PATH), pagesize=A4, leftMargin=54, rightMargin=54, topMargin=50, bottomMargin=48, title=f'{profile["name"]} — Python Backend Developer | Applied AI', author=profile["name"])
+    document = SimpleDocTemplate(str(PDF_PATH), pagesize=A4, leftMargin=54, rightMargin=54, topMargin=44, bottomMargin=42, title=f'{profile["name"]} — Python Backend Developer | Applied AI', author=profile["name"])
     def deterministic_canvas(*args, **kwargs):
         kwargs["invariant"] = 1
         return canvas.Canvas(*args, **kwargs)
