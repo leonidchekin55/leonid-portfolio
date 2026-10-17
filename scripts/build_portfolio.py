@@ -113,9 +113,9 @@ def build_pdf(data: dict) -> None:
     title_style = ParagraphStyle("ResumeTitle", parent=styles["Title"], fontName="Resume-Bold", fontSize=22, leading=26, textColor=colors.HexColor("#172a24"), alignment=TA_LEFT, spaceAfter=3)
     subtitle = ParagraphStyle("ResumeSubtitle", parent=styles["Normal"], fontName="Resume", fontSize=11, leading=14, textColor=colors.HexColor("#44534a"), spaceAfter=2)
     contact = ParagraphStyle("ResumeContact", parent=styles["Normal"], fontName="Resume", fontSize=9, leading=11, textColor=colors.HexColor("#44534a"), spaceAfter=2)
-    h1 = ParagraphStyle("ResumeH1", parent=styles["Heading1"], fontName="Resume-Bold", fontSize=14, leading=17, textColor=colors.HexColor("#172a24"), spaceBefore=9, spaceAfter=3, keepWithNext=True)
-    h2 = ParagraphStyle("ResumeH2", parent=styles["Heading2"], fontName="Resume-Bold", fontSize=10.5, leading=13, textColor=colors.HexColor("#172a24"), spaceBefore=5, spaceAfter=2, keepWithNext=True)
-    body = ParagraphStyle("ResumeBody", parent=styles["BodyText"], fontName="Resume", fontSize=9.2, leading=12, textColor=colors.black, spaceAfter=4, splitLongWords=1)
+    h1 = ParagraphStyle("ResumeH1", parent=styles["Heading1"], fontName="Resume-Bold", fontSize=14, leading=17, textColor=colors.HexColor("#172a24"), spaceBefore=7, spaceAfter=3, keepWithNext=True)
+    h2 = ParagraphStyle("ResumeH2", parent=styles["Heading2"], fontName="Resume-Bold", fontSize=10.5, leading=13, textColor=colors.HexColor("#172a24"), spaceBefore=4, spaceAfter=2, keepWithNext=True)
+    body = ParagraphStyle("ResumeBody", parent=styles["BodyText"], fontName="Resume", fontSize=9.2, leading=11.5, textColor=colors.black, spaceAfter=3, splitLongWords=1)
     story: list = []
     profile = data["resume"]
     story.append(Paragraph(pdf_text(profile["name"]), title_style))
