@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Turn an owner-approved portfolio issue into a reviewable pull request."""
+"""Validate an owner-authored portfolio update and publish it after local checks."""
 
 from __future__ import annotations
 
@@ -179,8 +179,14 @@ def create_pull_request(event: dict) -> str:
 
     subprocess.run([sys.executable, "scripts/build_portfolio.py"], cwd=ROOT, check=True)
     subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"], cwd=ROOT, check=True)
-    subprocess.run(["npm", "run", "test:html"], cwd=ROOT, check=True)
-    subprocess.run(["npm", "run", "test:links"], cwd=ROOT, check=True)
+    subprocess.run(["npm", "test"], cwd=ROOT, check=True)
+    pdfinfo = subprocess.run(
+        ["pdfinfo", str(ROOT / "downloads" / "Leonid_Chekin_Resume_Python_AI_FinTech.pdf")],
+        cwd=ROOT, check=True, capture_output=True, text=True,
+    ).stdout
+    page_count = re.search(r"^Pages:\s+(\d+)\s*$", pdfinfo, flags=re.MULTILINE)
+    if not page_count or page_count.group(1) != "2":
+        raise ValueError("generated resume PDF must contain exactly two pages")
     subprocess.run(["git", "config", "user.name", "github-actions[bot]"], cwd=ROOT, check=True)
     subprocess.run(["git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com"], cwd=ROOT, check=True)
     subprocess.run(["git", "checkout", "-b", branch], cwd=ROOT, check=True)
@@ -193,23 +199,31 @@ def create_pull_request(event: dict) -> str:
     title = f"Review portfolio update from #{issue_number}: {project_title}"
     body = (
         f"Prepared from #{issue_number} after the repository owner requested `/portfolio-update`.\n\n"
-        "Please verify the project facts and whether it belongs in the resume. Merging this PR refreshes the site and PDF; "
-        "Google Docs sync runs when the configured connection is available.\n\n"
+        "The issue JSON was validated, the site checks passed, and the generated resume has exactly two pages. "
+        "This PR is merged automatically after those checks; the main refresh workflow then updates Render and the configured Google Doc.\n\n"
         f"Closes #{issue_number}"
     )
     pr = github_api(
         "POST",
         f"/repos/{quote(repository)}/pulls",
         token,
-        {"title": title, "head": branch, "base": "main", "body": body, "draft": True},
+        {"title": title, "head": branch, "base": "main", "body": body, "draft": False},
     )
+    merge = github_api(
+        "PUT",
+        f"/repos/{quote(repository)}/pulls/{pr['number']}/merge",
+        token,
+        {"merge_method": "merge"},
+    )
+    if not merge.get("merged"):
+        raise RuntimeError(f"GitHub did not merge the validated portfolio update: {merge}")
     return pr["html_url"]
 
 
 def main() -> None:
     event_path = Path(os.environ["GITHUB_EVENT_PATH"])
     event = json.loads(event_path.read_text(encoding="utf-8"))
-    print(f"Created portfolio update pull request: {create_pull_request(event)}")
+    print(f"Published validated portfolio update: {create_pull_request(event)}")
 
 
 if __name__ == "__main__":
