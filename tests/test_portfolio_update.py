@@ -161,7 +161,7 @@ class PortfolioUpdateTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "repository owner"):
             MODULE.create_pull_request(event)
 
-    def test_resume_project_update_creates_a_draft_pull_request(self):
+    def test_resume_project_update_merges_after_validation(self):
         project = {
             "title": "City Sentinel · мониторинг оборудования",
             "text": "Обновлённое подтверждённое описание проекта.",
@@ -183,17 +183,20 @@ class PortfolioUpdateTests(unittest.TestCase):
             with (
                 patch.object(MODULE, "PORTFOLIO_PATH", portfolio_path),
                 patch.dict("os.environ", {"GITHUB_REPOSITORY": "leonidchekin55/leonid-portfolio", "GITHUB_TOKEN": "test-token"}),
-                patch.object(MODULE, "github_api", side_effect=[[], {"html_url": "https://github.com/leonidchekin55/leonid-portfolio/pull/42"}]) as github_api,
+                patch.object(MODULE, "github_api", side_effect=[[], {"html_url": "https://github.com/leonidchekin55/leonid-portfolio/pull/42", "number": 42}, {"merged": True}]) as github_api,
                 patch.object(MODULE.subprocess, "run") as run,
             ):
+                run.return_value.stdout = "Pages:           2\n"
                 url = MODULE.create_pull_request(event)
                 persisted_portfolio = json.loads(portfolio_path.read_text(encoding="utf-8"))
 
         self.assertEqual(url, "https://github.com/leonidchekin55/leonid-portfolio/pull/42")
         self.assertEqual(persisted_portfolio["resume_projects"][0]["text"], project["text"])
-        pull_request_payload = github_api.call_args.args[3]
+        pull_request_payload = github_api.call_args_list[1].args[3]
         self.assertIn(project["title"], pull_request_payload["title"])
-        self.assertTrue(pull_request_payload["draft"])
+        self.assertFalse(pull_request_payload["draft"])
+        self.assertEqual(github_api.call_args_list[2].args[:2], ("PUT", "/repos/leonidchekin55/leonid-portfolio/pulls/42/merge"))
+        self.assertEqual(github_api.call_args_list[2].args[3], {"merge_method": "merge"})
         self.assertEqual(run.call_count, 10)
 
     def test_repeated_update_does_not_claim_an_existing_pull_request_was_refreshed(self):
