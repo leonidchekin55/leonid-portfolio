@@ -12,13 +12,13 @@ import sys
 
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
-from reportlab.platypus import KeepTogether, PageBreak, Paragraph, SimpleDocTemplate, Spacer
+from reportlab.platypus import KeepTogether, Paragraph, SimpleDocTemplate, Spacer
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "content" / "portfolio.json"
@@ -100,6 +100,11 @@ def link_markup(links: list[dict]) -> str:
     )
 
 
+def pdf_text(value: str) -> str:
+    """Normalize typographic dash variants for consistent PDF rendering."""
+    return html.escape(re.sub(r"[\u2010-\u2015\u2212]", "-", value))
+
+
 def build_pdf(data: dict) -> None:
     regular, bold = find_font()
     pdfmetrics.registerFont(TTFont("Resume", regular))
@@ -113,19 +118,18 @@ def build_pdf(data: dict) -> None:
     body = ParagraphStyle("ResumeBody", parent=styles["BodyText"], fontName="Resume", fontSize=9.2, leading=12, textColor=colors.black, spaceAfter=4, splitLongWords=1)
     story: list = []
     profile = data["resume"]
-    story.append(Paragraph(html.escape(profile["name"]), title_style))
-    story.append(Paragraph(html.escape(profile["title"]), subtitle))
-    story.append(Paragraph(html.escape(f'{profile["phone"]} · {profile["email"]} · Telegram: {profile["telegram"]}'), contact))
-    story.append(Paragraph(html.escape(f'{profile["location"]} · удалённая работа'), contact))
+    story.append(Paragraph(pdf_text(profile["name"]), title_style))
+    story.append(Paragraph(pdf_text(profile["title"]), subtitle))
+    story.append(Paragraph(pdf_text(f'{profile["phone"]} · {profile["email"]} · Telegram: {profile["telegram"]}'), contact))
+    story.append(Paragraph(pdf_text(f'{profile["location"]} · удалённая работа'), contact))
     story.append(Paragraph("Профессиональный профиль", h1))
-    story.append(Paragraph(html.escape(profile["summary"]), body))
+    story.append(Paragraph(pdf_text(profile["summary"]), body))
     story.append(Paragraph("Ключевые компетенции", h1))
     for item in profile["competencies"]:
-        story.append(Paragraph("• " + html.escape(item), body))
+        story.append(Paragraph("• " + pdf_text(item), body))
     story.append(Paragraph("Опыт", h1))
     for item in profile["experience"]:
-        story.append(KeepTogether([Paragraph(html.escape(item["title"]), h2), Paragraph(html.escape(item["text"]), body)]))
-    story.append(PageBreak())
+        story.append(KeepTogether([Paragraph(pdf_text(item["title"]), h2), Paragraph(pdf_text(item["text"]), body)]))
     story.append(Paragraph("Избранные проекты", h1))
     projects = list(data["resume_projects"])
     projects.extend(
@@ -133,14 +137,14 @@ def build_pdf(data: dict) -> None:
         for item in data["new_projects"] if item.get("include_in_resume", True)
     )
     for item in projects:
-        block = [Paragraph(html.escape(item["title"]), h2), Paragraph(html.escape(item["text"]), body)]
+        block = [Paragraph(pdf_text(item["title"]), h2), Paragraph(pdf_text(item["text"]), body)]
         links = link_markup(item.get("links", []))
         if links:
             block.append(Paragraph(links, contact))
         story.append(KeepTogether(block))
     story.append(Paragraph("Образование и дополнительная информация", h1))
-    story.append(Paragraph(f'Образование: {html.escape(profile["education"])} Английский: {html.escape(profile["english"])}', body))
-    story.append(Paragraph(f'Формат: {html.escape(profile["work_format"])}', body))
+    story.append(Paragraph(pdf_text(f'Образование: {profile["education"]} Английский: {profile["english"]}'), body))
+    story.append(Paragraph(pdf_text(f'Формат: {profile["work_format"]}'), body))
     links = link_markup([{"label": "Портфолио", "url": profile["portfolio_url"]}, {"label": "Хабр Карьера", "url": profile["habr_url"]}])
     story.append(Paragraph(links, body))
 
@@ -148,10 +152,10 @@ def build_pdf(data: dict) -> None:
         canvas.saveState()
         canvas.setFont("Resume", 8)
         canvas.setFillColor(colors.HexColor("#68766d"))
-        canvas.drawRightString(letter[0] - 54, 32, f'{doc.page}')
+        canvas.drawRightString(A4[0] - 54, 32, f'{doc.page}')
         canvas.restoreState()
 
-    document = SimpleDocTemplate(str(PDF_PATH), pagesize=letter, leftMargin=54, rightMargin=54, topMargin=50, bottomMargin=48, title=f'{profile["name"]} — Python Backend Developer | Applied AI', author=profile["name"])
+    document = SimpleDocTemplate(str(PDF_PATH), pagesize=A4, leftMargin=54, rightMargin=54, topMargin=50, bottomMargin=48, title=f'{profile["name"]} — Python Backend Developer | Applied AI', author=profile["name"])
     def deterministic_canvas(*args, **kwargs):
         kwargs["invariant"] = 1
         return canvas.Canvas(*args, **kwargs)

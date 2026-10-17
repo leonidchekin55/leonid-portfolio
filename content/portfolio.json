@@ -93,6 +93,20 @@
           "url": "https://github.com/leonidchekin55/ai-news-rss-bot"
         }
       ]
+    },
+    {
+      "title": "Atelier Home · двуязычный WooCommerce-магазин",
+      "text": "Самостоятельный демонстрационный проект на WordPress и WooCommerce: каталог, фильтры, галереи товаров, корзина и тестовое оформление без списания денег. Настроил зашифрованное восстановление данных, языковые URL и canonical/hreflang, четыре security response headers, выборочную загрузку WooCommerce CSS и responsive preload главного изображения. Отключение emoji detection снизило загрузку главной страницы на 5,386 байт. Реальные платежи и отправка заказов не подключены.",
+      "links": [
+        {
+          "label": "Демо на русском",
+          "url": "https://atelier-woocommerce-demo.onrender.com/?atelier_lang=ru"
+        },
+        {
+          "label": "English demo",
+          "url": "https://atelier-woocommerce-demo.onrender.com/?atelier_lang=en"
+        }
+      ]
     }
   ],
   "new_projects": [
@@ -100,12 +114,12 @@
       "slug": "atlas-studio",
       "title_ru": "ATLAS Studio · платформа бизнес-автоматизации",
       "title_en": "ATLAS Studio · business automation platform",
-      "status_ru": "Личный проект · локальный MVP · 15 модулей",
-      "status_en": "Personal project · local MVP · 15 modules",
+      "status_ru": "Личный проект · локальный MVP · развитие платформы",
+      "status_en": "Personal project · local MVP · platform in development",
       "role_ru": "Моя роль: собрал интегрированный локальный MVP на Python/FastAPI/SQLite.",
       "role_en": "My role: built an integrated local MVP with Python/FastAPI/SQLite.",
-      "summary_ru": "Единая кодовая база с 15 функциональными демомодулями: обработка заявок, CRM, запись, поиск по знаниям, работа с CSV/PDF, автоматизация и аналитика. Доступна безопасная браузерная витрина на синтетических данных. Это прототип, не production SaaS: полноценная авторизация, multitenancy, billing и боевые интеграции не реализованы.",
-      "summary_en": "One codebase with 15 functional demo modules for lead handling, CRM, booking, knowledge search, CSV/PDF workflows, automation, and analytics. A safe browser showcase uses synthetic data. This is a prototype, not a production SaaS: full authentication, multitenancy, billing, and live integrations are not implemented.",
+      "summary_ru": "Единая кодовая база с 15 функциональными демомодулями: обработка заявок, CRM, запись, поиск по знаниям, работа с CSV/PDF, автоматизация и аналитика. Безопасная браузерная витрина работает на синтетических данных. Публичная версия остаётся прототипом; развитие SaaS-функций продолжается отдельно и в демо не включено.",
+      "summary_en": "One codebase with 15 functional demo modules for lead handling, CRM, booking, knowledge search, CSV/PDF workflows, automation, and analytics. The safe browser showcase uses synthetic data. The public version remains a prototype; SaaS features are being developed separately and are not enabled in the demo.",
       "tech": "Python / FastAPI / SQLite / REST API / HTML, CSS, JavaScript / Pytest",
       "links": [
         {
@@ -217,7 +231,7 @@
       "summary_en": "Monitors groups available to an authorized operator, uses local rules to identify potential CDL A / OTR candidates, deduplicates records in SQLite, and exports them to Google Sheets. It does not message candidates; operation requires Telegram credentials and sheet access.",
       "tech": "Python / Telegram / SQLite / Google Sheets API",
       "links": [],
-      "include_in_resume": true
+      "include_in_resume": false
     },
     {
       "slug": "ai-support-assistant",
@@ -237,7 +251,32 @@
           "url": "https://t.me/sever_ai_support_demo_bot"
         }
       ],
-      "include_in_resume": true
+      "include_in_resume": false
+    },
+    {
+      "slug": "fanhome-ui-prototype",
+      "title_ru": "FanHome · UI-прототип для фан-сообщества",
+      "title_en": "FanHome · fan community UI prototype",
+      "status_ru": "Публичный UI-макет · без backend",
+      "status_en": "Public UI prototype · no backend",
+      "role_ru": "Моя роль: собрал отдельную кликабельную витрину интерфейса продукта.",
+      "role_en": "My role: built a standalone, clickable showcase of the product interface.",
+      "summary_ru": "Макет показывает ленту публикаций, каналы, личные чаты и настройки профиля. Это только статический frontend-прототип: он не подключён к backend проекта, не создаёт реальные аккаунты, чаты или платежи.",
+      "summary_en": "The prototype shows a publication feed, channels, personal chats, and profile settings. It is a static frontend showcase: it is not connected to the project backend and does not create real accounts, chats, or payments.",
+      "tech": "HTML / CSS / JavaScript / Responsive UI",
+      "links": [
+        {
+          "label_ru": "Открыть прототип",
+          "label_en": "Open the prototype",
+          "url": "https://nexastud.github.io/fanhome-prototype/"
+        },
+        {
+          "label_ru": "Исходный код",
+          "label_en": "Source code",
+          "url": "https://github.com/NexaSTUD/fanhome-prototype"
+        }
+      ],
+      "include_in_resume": false
     }
   ]
 }

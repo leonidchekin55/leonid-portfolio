@@ -36,7 +36,7 @@ def paragraphs() -> list[dict]:
     ]
     for item in resume["experience"]:
         rows.extend([("h2", item["title"]), ("body", item["text"])])
-    rows.append(("h1_page", "Избранные проекты"))
+    rows.append(("h1", "Избранные проекты"))
     projects = list(DATA["resume_projects"])
     projects.extend(
         {
@@ -114,12 +114,9 @@ def main() -> None:
             target_range["tabId"] = tab_id
             text_range["tabId"] = tab_id
         kind = row["kind"]
-        if kind in ("h1", "h1_page"):
+        if kind == "h1":
             style = {"namedStyleType": "HEADING_1", "spaceAbove": {"magnitude": 10, "unit": "PT"}, "spaceBelow": {"magnitude": 3, "unit": "PT"}, "keepWithNext": True}
             fields = "namedStyleType,spaceAbove,spaceBelow,keepWithNext"
-            if kind == "h1_page":
-                style["pageBreakBefore"] = True
-                fields += ",pageBreakBefore"
             requests.append({"updateParagraphStyle": {"range": target_range, "paragraphStyle": style, "fields": fields}})
             requests.append({"updateTextStyle": {"range": text_range, "textStyle": {"bold": True, "fontSize": {"magnitude": 15, "unit": "PT"}}, "fields": "bold,fontSize"}})
         elif kind == "h2":
