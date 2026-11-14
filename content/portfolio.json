@@ -93,7 +93,7 @@
     },
     {
       "title": "Atelier Home · двуязычный WooCommerce-магазин",
-      "text": "Самостоятельный демонстрационный проект на WordPress и WooCommerce: каталог, фильтры, галереи товаров, корзина и тестовое оформление без списания денег. Настроил зашифрованное восстановление данных, языковые URL и canonical/hreflang, четыре security response headers, выборочную загрузку WooCommerce CSS и responsive preload главного изображения. Отключение emoji detection снизило загрузку главной страницы на 5,386 байт. Реальные платежи и отправка заказов не подключены.",
+      "text": "Самостоятельное двуязычное демо WordPress/WooCommerce: каталог, фильтры, корзина и тестовое оформление. Настроил зашифрованное восстановление, canonical/hreflang, защитные заголовки и оптимизацию загрузки. Реальные платежи и отправка заказов не подключены.",
       "links": [
         {
           "label": "Демо на русском",
@@ -111,6 +111,56 @@
     }
   ],
   "new_projects": [
+    {
+      "slug": "inquiry-workflow-demo",
+      "title_ru": "Учёт обращений · локальное демо",
+      "title_en": "Inquiry tracking · local demo",
+      "status_ru": "Демонстрационный прототип · без интеграций",
+      "status_en": "Demonstration prototype · no integrations",
+      "role_ru": "Моя роль: разработал браузерное демо.",
+      "role_en": "My role: built a browser prototype for tracking inquiries and drafting replies.",
+      "summary_ru": "Учебные задачи, сроки и черновики; данные хранятся в браузере. Интеграций нет.",
+      "summary_en": "Sample tasks, statuses, deadlines, and reply drafts. Data stays in the browser; no external services are connected.",
+      "tech": "HTML / CSS / JavaScript / LocalStorage",
+      "links": [
+        {
+          "label_ru": "Демо",
+          "label_en": "Demo",
+          "url": "https://inbox-workflow-demo.onrender.com"
+        },
+        {
+          "label_ru": "Исходный код",
+          "label_en": "Source code",
+          "url": "https://github.com/leonidchekin55/inbox-workflow-demo/tree/codex/inbox-workflow-demo"
+        }
+      ],
+      "include_in_resume": true
+    },
+    {
+      "slug": "blogger-dashboard-demo",
+      "title_ru": "Аналитика размещений · UI-прототип",
+      "title_en": "Campaign analytics · UI prototype",
+      "status_ru": "Тестовое задание · демонстрационный интерфейс",
+      "status_en": "Coding assignment · demo interface",
+      "role_ru": "Моя роль: разработал интерфейс и логику показателей.",
+      "role_en": "My role: built the responsive interface and metrics display logic.",
+      "summary_ru": "Полностью вымышленные данные: поиск, фильтры, сортировка и метрики. Без авторизации и серверного хранения.",
+      "summary_en": "Fully fictional data, with search, filters, sorting, and metrics. No authentication or server-side storage.",
+      "tech": "React / Vite / Tailwind CSS / JavaScript",
+      "links": [
+        {
+          "label_ru": "Демо",
+          "label_en": "Demo",
+          "url": "https://influence-analytics-demo.onrender.com/index.html"
+        },
+        {
+          "label_ru": "Исходный код",
+          "label_en": "Source code",
+          "url": "https://github.com/leonidchekin55/influence-analytics-demo/tree/codex/synthetic-analytics-demo"
+        }
+      ],
+      "include_in_resume": true
+    },
     {
       "slug": "atlas-studio",
       "title_ru": "ATLAS Studio · платформа бизнес-автоматизации",
