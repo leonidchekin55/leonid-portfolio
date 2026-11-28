@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GameDev and QA — practical case | Leonid Chekin</title>
+  <meta name="description" content="Manual test design for FASTFO, limited demo observations, and an API availability bug-report example.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://leonid-portfolio.onrender.com/gamedev-qa-en.html">
+  <link rel="alternate" hreflang="ru" href="https://leonid-portfolio.onrender.com/gamedev-qa.html">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="knowledge-architecture.css">
+</head>
+<body class="architecture-page">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="board-header arch-header"><a class="brand" href="en.html"><span class="logo">lc.</span>Portfolio</a><nav aria-label="Portfolio"><a href="en.html#gamedev">Game projects ↗</a><a href="gamedev-qa.html" lang="ru">RU</a></nav></header>
+  <main id="main" class="arch-main">
+    <div class="arch-kicker">GAMEDEV · QA / FASTFO — ECHO RANGE</div>
+    <h1>GameDev and QA: testing a game mechanic.</h1>
+    <p class="arch-lead">A practical QA case based on the FASTFO — Echo Range browser game. My core background is Python, APIs, integrations, automated checks, and AI-assisted development since 2022. Game testing is an area I am developing.</p>
+    <div class="arch-actions"><a class="button lime" href="https://fastfo-echo-range.leonidchekin55.chatgpt.site/" target="_blank" rel="noopener">Open the external demo ↗</a><a href="https://github.com/leonidchekin55/leonid-portfolio/pull/19" target="_blank" rel="noopener">PR #19 ↗</a></div>
+    <aside class="arch-notice">Verification scope. Three observations come from a limited AI-assisted check dated November 28, 2026, documented in PR #19. This is not a full regression run or evidence of game authorship. The other scenarios are test designs, not executed tests. Current external demo availability is unconfirmed.</aside>
+    <section class="arch-section" aria-labelledby="scope"><div class="arch-label">01 / SCOPE</div><h2 id="scope">Test object and environment.</h2><p>Scope: moving target, scoring, pause, difficulty, target falls and black holes, and microphone permissions. For a repeat run, record the URL, date, browser and version, OS, device, difficulty, initial state, and screenshots. The earlier PR does not specify the game build identifier or test environment.</p></section>
+    <section class="arch-section" aria-labelledby="cases"><div class="arch-label">02 / TEST DESIGN</div><h2 id="cases">Test cases and status.</h2>
+      <div class="arch-table-wrap"><table class="arch-table"><thead><tr><th scope="col">ID / priority</th><th scope="col">Steps</th><th scope="col">Expected result</th><th scope="col">Status</th></tr></thead><tbody>
+        <tr><th scope="row">G-01 / P1</th><td>Open the demo and start the game.</td><td>The game starts and the target appears.</td><td>Observed: game started</td></tr>
+        <tr><th scope="row">G-02 / P1</th><td>Press Space during gameplay.</td><td>Points are awarded according to the hit rules.</td><td>Observed: points awarded</td></tr>
+        <tr><th scope="row">G-03 / P1</th><td>Activate pause during gameplay.</td><td>The game enters a paused state.</td><td>Observed: pause worked</td></tr>
+        <tr><th scope="row">G-04 / P1</th><td>Pause, press Space, then resume.</td><td>Score remains unchanged while paused; gameplay resumes.</td><td>Not run</td></tr>
+        <tr><th scope="row">G-05 / P2</th><td>Select each available difficulty and start the game.</td><td>Difficulty is applied; compare movement parameters and speed against the game rules.</td><td>Not run</td></tr>
+        <tr><th scope="row">G-06 / P1</th><td>Wait for the target to fall and observe the playfield.</td><td>Black holes appear according to the intended mechanic; gameplay remains controllable.</td><td>Not run</td></tr>
+        <tr><th scope="row">G-07 / P1</th><td>Grant microphone permission, produce a sound, then stop.</td><td>Input follows the game rules; no unintended repeated scoring.</td><td>Not run</td></tr>
+        <tr><th scope="row">G-08 / P1</th><td>Deny microphone permission and try keyboard controls.</td><td>Denial is handled without freezing; verify alternative input availability.</td><td>Not run</td></tr>
+        <tr><th scope="row">G-09 / P2</th><td>Restart after scoring and pausing.</td><td>The initial state is restored according to the game rules.</td><td>Not run</td></tr>
+        <tr><th scope="row">G-10 / P2</th><td>Open the game on a mobile device in both orientations.</td><td>UI remains readable and primary controls accessible; check input methods separately.</td><td>Not run</td></tr>
+      </tbody></table></div><p class="arch-caption">Expected outcomes for unexecuted cases are working hypotheses to validate against game requirements. P1 covers core gameplay; P2 adds coverage. The three observations do not establish that every expected outcome passed.</p>
+    </section>
+    <section class="arch-section" aria-labelledby="defect"><div class="arch-label">03 / BUG REPORT</div><h2 id="defect">Example of a real defect: API availability.</h2><p>QA-01 · Pulseboard /health/live. On November 27, 2026, GitHub Actions returned HTTP 200 for the portfolio homepage but HTTP 503 for the Pulseboard API. Impact: the interactive board may be unavailable even when the site loads. Expected: the available API returns HTTP 200. Reproduction: repeat GET /health/live and record the response. Priority: high for the demo. Current status: retest required; root cause is not established.</p><p><a href="https://github.com/leonidchekin55/leonid-portfolio/actions/runs/46041806607" target="_blank" rel="noopener">GitHub Actions log ↗</a> · <a href="pulseboard.html#demo-video">Board video if the API is unavailable ↗</a></p></section>
+    <section class="arch-section" aria-labelledby="next"><div class="arch-label">04 / NEXT STEPS</div><h2 id="next">Next verification steps.</h2><p>Before release: check the core game flow, permission errors, and restart; repeat on two devices; record actual results and defects with reproduction steps. This is a limited observation and test plan, not a game release-readiness assessment.</p><div class="arch-actions"><a class="button lime" href="https://t.me/leonchek97">Contact on Telegram ↗</a><a href="en.html#gamedev">Game projects ↗</a></div></section>
+    <footer class="arch-footer"><span>GameDev · QA · 2026</span><a href="en.html#gamedev">Portfolio</a></footer>
+  </main>
+</body>
+</html>
