@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GameDev и QA — практический кейс | Леонид Чекин</title>
+  <meta name="description" content="План ручного тестирования браузерной игры FASTFO, результаты ограниченной проверки и пример оформления дефекта API.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://leonid-portfolio.onrender.com/gamedev-qa.html">
+  <link rel="alternate" hreflang="en" href="https://leonid-portfolio.onrender.com/gamedev-qa-en.html">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="knowledge-architecture.css">
+</head>
+<body class="architecture-page">
+  <a class="skip" href="#main">Перейти к содержимому</a>
+  <header class="board-header arch-header"><a class="brand" href="index.html"><span class="logo">lc.</span>Портфолио</a><nav aria-label="Портфолио"><a href="index.html#gamedev">Игровые проекты ↗</a><a href="gamedev-qa-en.html" lang="en">EN</a></nav></header>
+  <main id="main" class="arch-main">
+    <div class="arch-kicker">GAMEDEV · QA / FASTFO — ECHO RANGE</div>
+    <h1>GameDev и QA: как проверять игровую механику.</h1>
+    <p class="arch-lead">Практический QA-кейс на основе браузерной игры FASTFO — Echo Range. Мой основной опыт — Python, API, интеграции, автоматизированные проверки и AI-assisted разработка с 2022 года. Игровое тестирование — направление, в котором развиваюсь.</p>
+    <div class="arch-actions"><a class="button lime" href="https://fastfo-echo-range.leonidchekin55.chatgpt.site/" target="_blank" rel="noopener">Открыть внешнее демо ↗</a><a href="https://github.com/leonidchekin55/leonid-portfolio/pull/19" target="_blank" rel="noopener">PR #19 ↗</a></div>
+    <aside class="arch-notice">Границы проверки. Три наблюдения относятся к ограниченной проверке AI-ассистентом 28.11.2026, описанной в PR №19. Это не полный регрессионный прогон и не подтверждение авторства игры. Остальные сценарии — тест-дизайн, а не выполненные тесты. Доступность внешнего демо сейчас не подтверждена.</aside>
+    <section class="arch-section" aria-labelledby="scope"><div class="arch-label">01 / SCOPE</div><h2 id="scope">Объект и условия тестирования.</h2><p>Объект: движущаяся мишень, начисление очков, пауза, сложность, падение мишени и чёрные дыры, разрешения микрофона. Для повторного прогона фиксировать URL, дату, браузер и версию, ОС, устройство, параметры сложности, начальное состояние и скриншоты. Номер сборки и среда предыдущей проверки в PR не указаны.</p></section>
+    <section class="arch-section" aria-labelledby="cases"><div class="arch-label">02 / TEST DESIGN</div><h2 id="cases">Тест-кейсы и статусы.</h2>
+      <div class="arch-table-wrap"><table class="arch-table"><thead><tr><th scope="col">ID / приоритет</th><th scope="col">Действия</th><th scope="col">Ожидаемый результат</th><th scope="col">Статус</th></tr></thead><tbody>
+        <tr><th scope="row">G-01 / P1</th><td>Открыть демо и начать игру.</td><td>Игра запускается, мишень появляется.</td><td>Наблюдалось: игра запустилась</td></tr>
+        <tr><th scope="row">G-02 / P1</th><td>Во время игры нажать Space.</td><td>Очки начисляются по правилам попадания.</td><td>Наблюдалось: очки начислены</td></tr>
+        <tr><th scope="row">G-03 / P1</th><td>Активировать паузу в игре.</td><td>Игра переходит в состояние паузы.</td><td>Наблюдалось: пауза сработала</td></tr>
+        <tr><th scope="row">G-04 / P1</th><td>Поставить паузу, нажать Space, затем продолжить.</td><td>При паузе не изменяется счёт; продолжение восстанавливает игровой процесс.</td><td>Не проверено</td></tr>
+        <tr><th scope="row">G-05 / P2</th><td>Выбрать по очереди доступные уровни сложности, начать игру.</td><td>Уровень применяется; сравнить параметры движения и скорость по правилам игры.</td><td>Не проверено</td></tr>
+        <tr><th scope="row">G-06 / P1</th><td>Дождаться падения мишени, наблюдать игровое поле.</td><td>Чёрные дыры появляются согласно предусмотренной механике; игра остаётся управляемой.</td><td>Не проверено</td></tr>
+        <tr><th scope="row">G-07 / P1</th><td>Разрешить доступ к микрофону, воспроизвести звук, затем прекратить его.</td><td>Реакция соответствует заданным правилам ввода; нет случайных повторных начислений.</td><td>Не проверено</td></tr>
+        <tr><th scope="row">G-08 / P1</th><td>Запретить доступ к микрофону и попробовать клавиатурное управление.</td><td>Отказ обработан без зависания; доступность альтернативного управления проверяется.</td><td>Не проверено</td></tr>
+        <tr><th scope="row">G-09 / P2</th><td>Перезапустить игру после начисления очков и паузы.</td><td>Новое состояние корректно инициализируется по правилам игры.</td><td>Не проверено</td></tr>
+        <tr><th scope="row">G-10 / P2</th><td>Открыть игру на мобильном устройстве в двух ориентациях.</td><td>Интерфейс читаем и основные элементы доступны; способы ввода проверяются отдельно.</td><td>Не проверено</td></tr>
+      </tbody></table></div><p class="arch-caption">Ожидаемые результаты непроверенных сценариев — рабочие гипотезы для согласования с требованиями игры. P1 — основной игровой сценарий, P2 — дополнительное покрытие. Три наблюдения не заменяют подтверждение всех ожидаемых результатов.</p>
+    </section>
+    <section class="arch-section" aria-labelledby="defect"><div class="arch-label">03 / BUG REPORT</div><h2 id="defect">Пример реального дефекта: доступность API.</h2><p>QA-01 · Pulseboard /health/live. В GitHub Actions 27.11.2026 проверка главной страницы портфолио вернула HTTP 200, а проверка API Pulseboard — HTTP 503. Влияние: интерактивная доска может быть недоступна, хотя сайт открывается. Ожидание: доступный API возвращает HTTP 200. Воспроизведение: повторить GET /health/live и записать ответ. Приоритет: высокий для демонстрации. Текущий статус: нужна повторная проверка; причину сбоя не устанавливаем без диагностики.</p><p><a href="https://github.com/leonidchekin55/leonid-portfolio/actions/runs/46041806607" target="_blank" rel="noopener">Лог GitHub Actions ↗</a> · <a href="pulseboard.html#demo-video">Видео доски вместо недоступного API ↗</a></p></section>
+    <section class="arch-section" aria-labelledby="next"><div class="arch-label">04 / NEXT STEPS</div><h2 id="next">Что проверять дальше.</h2><p>Перед выпуском: проверить основной игровой сценарий, ошибки разрешений и перезапуск, повторить прогоны на двух устройствах, записать фактические результаты и дефекты с шагами воспроизведения. Пока это ограниченное наблюдение и план проверки, не заключение о готовности игры к релизу.</p><div class="arch-actions"><a class="button lime" href="https://t.me/leonchek97">Связаться в Telegram ↗</a><a href="index.html#gamedev">Игровые проекты ↗</a></div></section>
+    <footer class="arch-footer"><span>GameDev · QA · 2026</span><a href="index.html#gamedev">Портфолио</a></footer>
+  </main>
+</body>
+</html>

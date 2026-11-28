@@ -33,3 +33,25 @@ for (const path of ["/", "/en.html"]) {
     await expect(page).toHaveURL(/#gamedev$/);
   });
 }
+
+for (const [home, report, alternate, lang] of [
+  ["/", "gamedev-qa.html", "gamedev-qa-en.html", "ru"],
+  ["/en.html", "gamedev-qa-en.html", "gamedev-qa.html", "en"],
+]) {
+  test(`QA evidence is accessible, localized and distinguishes observations from test plans (${lang})`, async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(home);
+    const game = page.locator('[data-game="fastfo-echo-range"]');
+    await game.locator(`a[href="${report}"]`).click();
+    await expect(page).toHaveURL(new RegExp(report.replace(".", "\\.") + "$"));
+    await expect(page.locator("html")).toHaveAttribute("lang", lang);
+    const rows = page.locator("table tbody tr");
+    await expect(rows).toHaveCount(10);
+    await expect(rows.filter({ hasText: lang === "ru" ? "Наблюдалось:" : "Observed:" })).toHaveCount(3);
+    await expect(rows.filter({ hasText: lang === "ru" ? "Не проверено" : "Not run" })).toHaveCount(7);
+    await expect(page.locator("#defect + p")).toContainText("HTTP 503");
+    await expect(page.locator('a[href="pulseboard.html#demo-video"]')).toHaveCount(1);
+    await page.locator(`header a[href="${alternate}"]`).click();
+    await expect(page.locator("html")).toHaveAttribute("lang", lang === "ru" ? "en" : "ru");
+  });
+}
